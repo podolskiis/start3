@@ -1,0 +1,14 @@
+@mixin field-hide {
+  position: absolute !important;
+  top: 0 !important;
+  left: 0 !important;
+  right: 0 !important;
+  bottom: 0 !important;
+  width: 100% !important;
+  height: 100% !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  opacity: 0 !important;
+  border: 0 !important;
+  clip: rect(0 0 0 0) !important;
+}

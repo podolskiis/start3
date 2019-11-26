@@ -1,0 +1,11 @@
+@mixin bem-has($element) {
+  &__#{$element} {
+    @content;
+  }
+}
+
+@mixin bem-variant($modifier) {
+  &--#{$modifier} {
+    @content;
+  }
+}

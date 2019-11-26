@@ -1,0 +1,20 @@
+extends _base/_main.pug
+block vars
+  - title = ['dev']
+  - bodyClasses = ['page--dev']
+  - modals = 1
+block content
+  //- +b-pagesUpdated
+  .container
+    h1.m-0.py-4=poject
+    .row.gy-30
+      .col-auto
+        h3.mt-0 Pages
+        +b-dev('pages',[
+          "main",
+        ]).d-flex.flex-column.gy-15.nowrap
+      .col-auto
+        h3.mt-0 Modals
+        +b-dev('modals',[
+          "login",
+        ]).d-flex.flex-column.gy-15.nowrap

@@ -1,0 +1,7 @@
+@mixin reset-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  // support: IE10+, see #8844
+  // list-style-image: url(data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7);
+}

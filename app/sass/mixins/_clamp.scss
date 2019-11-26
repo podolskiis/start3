@@ -1,0 +1,12 @@
+@mixin clamp($i:null) {
+  // reset
+  hyphens: none;
+  word-break: normal;
+  // initialize
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  @if $i {
+    -webkit-line-clamp: $i;
+  }
+}

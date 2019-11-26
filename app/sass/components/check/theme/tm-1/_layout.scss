@@ -1,0 +1,99 @@
+@import 'variables';
+$check: 'check'; // check | square
+@mixin check($check) {
+  @if $check == 'square' {
+    top: $ch-gutter-checked;
+    left: $ch-gutter-checked;
+    right: $ch-gutter-checked;
+    bottom: $ch-gutter-checked;
+    background-color: $ch-border-color;
+    border-radius: $ch-border-radius - 1;
+  }
+  @if $check == 'check' {
+    border-bottom: 3px solid $ch-border-focus-color;
+    border-left: 3px solid $ch-border-focus-color;
+    top: 3px;
+    left: 0;
+    width: 100%;
+    height: 50%;
+    transform: rotate(-50deg) scale(.6);
+  }
+}
+
+&--tm-1 {
+  #{$root}__col {
+    &:last-child {
+      margin-left: $ch-spacing-col;
+    }
+  }
+  [type="checkbox"] + #{$root}__checked,
+  [type="radio"] + #{$root}__checked {
+    @include tsn;
+    background-color: $ch-bg;
+    border: $ch-border-width solid $ch-border-color;
+    border-radius: $ch-border-radius;
+    width: $ch-size;
+    height: $ch-size;
+    &::before {
+      @include tsn-all;
+    }
+  }
+  [type="checkbox"] + #{$root}__checked{
+    &::before {
+      @include check($check);
+    }
+  }
+  [type="radio"] + #{$root}__checked {
+    border-radius: 50%;
+    width: $ch-size + 2;
+    height: $ch-size + 2;
+    &::before {
+      @include check('square');
+      $ch-gutter-checked: $ch-gutter-checked + 1;
+      border-radius: 50%;
+      top: $ch-gutter-checked;
+      left: $ch-gutter-checked;
+      right: $ch-gutter-checked;
+      bottom: $ch-gutter-checked;
+    }
+  }
+  #{$root}__val {
+    font-size: $ch-text-font-size;
+  }
+  #{$root}__input {
+    // hover
+    &:hover + #{$root}__checked {
+      &:before {}
+    }
+    // focus
+    &:focus + #{$root}__checked {
+      background-color: $ch-bg;
+      border-color: $ch-border-focus-color;
+      &:before {}
+    }
+    // checked
+    &[type="checkbox"]:checked + #{$root}__checked {
+      @if $check == 'square' {
+        &:before {
+          background-color: $ch-color-checked;
+        }
+      }
+      @if $check == 'check' {
+        background-color: $ch-color-checked;
+        border-color: $ch-color-checked;
+        color: #ffffff;
+        &:before {
+          border-color: #ffffff;
+        }
+      }
+    }
+    &[type="radio"]:checked + #{$root}__checked {
+      &:before {
+        background-color: $ch-color-checked;
+      }
+    }
+  }
+  a {
+    &:hover {}
+  }
+}

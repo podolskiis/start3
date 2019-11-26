@@ -1,0 +1,21 @@
+$dir-base: "./";
+$dir-fonts-base: "../fonts/";
+$dir-images-base: "../images/theme/";
+
+// FONT
+$ff-base: "Open Sans", sans-serif;
+$fz-base: 16px;
+$fw-base: 400;
+$lh-base: 1.4;
+
+// GUTTER
+$gutter-grid-base: 30px;
+$gutter-grid-sm-base: 20px;
+$gutter-base: $gutter-grid-base;
+$gutter-item-base: 15px;
+
+// ...
+$duration-base: 0.2s;
+$border-radius-base: 3px;
+$box-shadow-below-base: 1px 1px 5px rgba(#000000, 0.3);
+$box-shadow-above-base: 1px -1px 5px rgba(#000000, 0.3);

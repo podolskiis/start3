@@ -1,0 +1,38 @@
+@import 'variables';
+
+.owl-carousel {
+  .item {
+    background-color: #cccccc;
+    padding: 20px;
+  }
+  .owl-nav {
+    button {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+    }
+    .owl-prev {
+      left: 0;
+    }
+    .owl-next {
+      right: 0;
+    }
+  }
+  .owl-dots {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    button {
+      background-color: #cccccc;
+      border-radius: 50%;
+      width: 16px;
+      height: 16px;
+      margin: 5px;
+      &.active {
+        background-color: #333333;
+      }
+    }
+  }
+
+  @import 'theme';
+}

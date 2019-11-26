@@ -1,0 +1,62 @@
+@mixin media-min-max($breakpoint, $resize) {
+  $sfx: if($breakpoint == 'xs', '', '-#{$breakpoint}-#{$resize}');
+  // helpers-map
+  @each $class, $rules in $helpers-map {
+    .#{$class}#{$sfx} {
+      @each $rule, $value in $rules {
+        #{$rule}: $value !important;
+      }
+    }
+  }
+}
+
+@mixin media-default($breakpoint) {
+	// min-max width
+  $sfx: if($breakpoint == 'xs', '', '-#{$breakpoint}');
+	@each $val in $wrap {
+		.w#{$sfx}-#{$val} {
+			width: rem($val) !important;
+		}
+		.max-w#{$sfx}-#{$val} {
+			max-width: rem($val) !important;
+		}
+		.min-w#{$sfx}-#{$val} {
+			min-width: rem($val) !important;
+		}
+	}
+	// spacing margin-padding
+  @each $spacing-class, $option-rules in $spacing-map {
+    @each $spacing-size in $spacing-size-map {
+			// @if $spacing-size != 5 and $spacing-size != 0 {
+      @if $spacing-size > 5 {
+	      .#{$spacing-class + $sfx + '-#{strip-units($spacing-size)}'} {
+					@each $option-rule in $option-rules {
+		        #{$option-rule}: rem($spacing-size) !important;
+		      }
+	      }
+			}
+    }
+  }
+}
+
+// GRID-GENERATOR
+@mixin media-generator($breakpoint) {
+  @include media-min-max($breakpoint, $resize: 'min');
+  @include media-default($breakpoint);
+}
+
+@mixin breakpoint-helpers-init($breakpoints) {
+  @each $breakpoint, $width in $breakpoints {
+    @if ($width > 0) {
+      @media (min-width: $width) {
+        @include media-generator($breakpoint);
+      }
+      @media (max-width: $width - .2px) {
+        @include media-min-max($breakpoint, $resize: 'max');
+      }
+    }
+    @else {
+      @include media-generator($breakpoint);
+    }
+  }
+}

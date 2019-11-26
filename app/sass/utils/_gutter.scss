@@ -1,0 +1,10 @@
+@each $breakpoint, $width in $grid-breakpoints {
+  @if ($width > 0) {
+    @media (min-width: $width) {
+      @include flow-offset($breakpoint);
+    }
+  }
+  @else {
+    @include flow-offset($breakpoint);
+  }
+}

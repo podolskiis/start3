@@ -1,0 +1,10 @@
+@mixin btn-icon($p1) {
+  .icon {
+    &[class*=left] {
+      margin-right: $p1;
+    }
+    &[class*=right] {
+      margin-left: $p1;
+    }
+  }
+}

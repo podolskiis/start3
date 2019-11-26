@@ -1,0 +1,42 @@
+.b-check {
+  $root: &;
+  display: inline-block;
+  position: relative;
+  text-align: left;
+	cursor: pointer;
+	margin: 0;
+  &__row {
+    display: flex;
+    align-items: flex-start;
+  }
+  &__input {
+    @include field-hide;
+  }
+  &__field {
+    position: relative;
+    display: inline-block;
+    vertical-align: middle;
+		transform: translateY(-1px);
+  }
+  &__checked {
+    display: block;
+    &::before {
+      content: "";
+      position: absolute;
+      opacity: 0;
+    }
+  }
+  &__text {
+    cursor: default;
+    display: inline-block;
+    vertical-align: middle;
+  }
+  // checked
+  &__input:checked {
+    + #{$root}__checked:before {
+      opacity: 1;
+    }
+  }
+
+  @import 'theme/tm-1/layout';
+}

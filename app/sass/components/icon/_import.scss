@@ -1,0 +1,19 @@
+$icon-spacing-y: unit(8px);
+
+@include font('icomoon','icomoon/icomoon');
+[class^="icon-"],[class*=" icon-"] {@include icomoon}
+@import 'icomoon';
+
+.icon {
+  &--middle {
+    display: inline-block;
+    vertical-align: middle;
+    margin-top: -.25em;
+  }
+  &--left {
+    margin-right: $icon-spacing-y;
+  }
+  &--right {
+    margin-left: $icon-spacing-y;
+  }
+}

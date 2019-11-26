@@ -1,0 +1,88 @@
+@import 'variables';
+@import '../../mixin/import';
+
+&--tm-1 {
+  // FIELD
+  #{$root}__field,
+  .b-field-icon__field {
+    @include field-input;
+    &::placeholder {
+      @include tsn-all;
+      color: $placeholder-color;
+      font-weight: $input-font-weight;
+    }
+    &:focus, &.focus {
+      &::placeholder {
+        color: $placeholder-focus-color;
+      }
+    }
+    // VALIDATE
+    & + #{$root}__text-error {
+      display: none;
+      color: $input-bg-error-color;
+    }
+    &:valid {
+      &:not(:placeholder-shown) {
+        background-color: $input-bg-focus-color;
+      }
+    }
+    &:invalid {
+      &:not(:placeholder-shown) {
+      	border-color: $input-bg-error-color;
+        + #{$root}__text-error {
+          display: block;
+        }
+      }
+    }
+  }
+  textarea#{$root}__field {
+    height: auto;
+    min-height: 100px;
+  }
+  // FIELDSET
+  #{$root}__fieldset {
+    margin-bottom: 30px;
+    &:last-child {
+      margin-bottom: 0 !important;
+    }
+    @media($min-md) {
+      & {
+        margin-bottom: 50px;
+      }
+    }
+  }
+  // LABEL
+  #{$root}__label {
+    display: block;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    margin-bottom: 5px;
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+  // GROUP
+  #{$root}__group {
+    margin-top: $form-group-gutter;
+    &:first-child {
+      margin-top: 0;
+    }
+    &--bt {
+      margin-top: $form-group-gutter * 2;
+    }
+  }
+  // INPUT-ICON
+  .b-field-icon {
+    @include field-icon($input-size-icon);
+    &__field {
+      @include text-overflow;
+    }
+    &__icon--over {
+      color: $placeholder-color;
+      &:hover {
+        color: $input-font-color;
+      }
+    }
+  }
+}

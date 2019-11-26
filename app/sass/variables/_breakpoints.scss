@@ -1,0 +1,43 @@
+// Breakpoints Window
+$sm: 576px;
+$md: 768px;
+$lg: 992px;
+$xl: 1200px;
+
+// Media Min
+$min-sm: 'min-width: #{$sm}';
+$min-md: 'min-width: #{$md}';
+$min-lg: 'min-width: #{$lg}';
+$min-xl: 'min-width: #{$xl}';
+
+// Media Max
+$maxnum: .02px;
+$max-sm: 'max-width: #{$sm - $maxnum}';
+$max-md: 'max-width: #{$md - $maxnum}';
+$max-lg: 'max-width: #{$lg - $maxnum}';
+$max-xl: 'max-width: #{$xl - $maxnum}';
+
+// Breakpoints base
+$max-base: $max-lg;
+$min-base: $min-lg;
+
+
+// BOOTSTRAP OVERRIDE
+// ******************
+
+// Grid breakpoints
+$grid-breakpoints: (
+  xs : 0,
+  sm : $sm,
+  md : $md,
+  lg : $lg,
+  xl : $xl
+);
+
+// Grid containers
+$container-max-widths: (
+  sm : 540px,
+  md : 720px,
+  lg : 960px,
+  xl : 1140px
+);

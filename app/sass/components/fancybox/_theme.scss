@@ -1,0 +1,23 @@
+&--default {
+  width: 100%;
+  background: #fff;
+  #{$root}__content {
+    padding-top: unit(40px);
+    padding-bottom: unit(40px);
+    @media($min-md) {
+      padding: unit(30px);
+    }
+  }
+}
+
+&--text {
+  width: 100%;
+  background: #fff;
+  #{$root}__content {
+    padding-top: unit(40px);
+    padding-bottom: unit(40px);
+    @media($min-md) {
+      padding: unit(60px);
+    }
+  }
+}

@@ -1,0 +1,10 @@
+@mixin colors($data) {
+  @each $key, $val in $data {
+    @if $data == $bg-color {
+      .bg-color-#{$key} {background-color: $val !important}
+    }
+    @else if $data == $text-color {
+      .text-color-#{$key} {color: $val !important}
+    }
+  }
+}

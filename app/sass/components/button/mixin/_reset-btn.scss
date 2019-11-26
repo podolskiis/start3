@@ -1,0 +1,54 @@
+@mixin reset-btn {
+  // base
+  border: none;
+  margin: 0;
+  padding: 0;
+  width: auto;
+  max-width: 100%;
+  overflow: visible;
+  background-color: transparent;
+
+  // inherit font & color from ancestor
+  color: inherit;
+  font: inherit;
+
+  // Corrects font smoothing for webkit
+  -webkit-font-smoothing: inherit;
+  -moz-osx-font-smoothing: inherit;
+
+  // Corrects inability to style clickable `input` types in iOS
+  -webkit-appearance: none;
+
+  // Normalize `line-height`. Cannot be changed from `normal` in Firefox 4+
+  line-height: normal;
+
+  // Remove excess padding and border in Firefox 4+
+  &::-moz-focus-inner {
+    border: 0;
+    padding: 0;
+  }
+
+  // custom settings
+  outline: none;
+  cursor: pointer;
+  border-radius: 0;
+  text-align: center;
+  // position: relative;
+  box-sizing: inherit;
+  text-decoration: none;
+  vertical-align: middle;
+  text-transform: inherit;
+  letter-spacing: inherit;
+
+  // flex
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+
+  &:hover {
+    text-decoration: none;
+  }
+  &:focus {
+    outline: none;
+  }
+}

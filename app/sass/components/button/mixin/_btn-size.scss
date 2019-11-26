@@ -1,0 +1,35 @@
+@mixin btn-size(
+  $size: $btn-size-base,
+  $font-size: $btn-font-size-base,
+  $border-size: $btn-border-size-base
+) {
+  $line-height: $font-size * $btn-line-height-base;
+  $padding-y: rem(($size - $line-height)/2 - $border-size - 1);
+  @if $padding-y > 0 {
+    padding: {
+      top: $padding-y;
+      bottom: $padding-y;
+    }
+  }
+  @if $size > $line-height {
+    min-height: rem($size);
+  }
+  font-size: rem($font-size);
+}
+
+@function size($n1,$n2) {
+  @return $n1 * $n2;
+}
+
+@mixin btn-resize(
+  $size: 1,
+  $padding-x: null
+) {
+  $padding-x: rem(if($padding-x, $padding-x, size($btn-padding-x-base,$size)));
+  padding: {
+    left: $padding-x;
+    right: $padding-x;
+  }
+  @include btn-size(size($btn-size-base,$size), size($btn-font-size-base,$size));
+  @include btn-icon(size($btn-icon-spacing-y-base,$size));
+}

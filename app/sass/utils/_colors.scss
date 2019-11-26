@@ -1,0 +1,4 @@
+// example: .bg-color-white/.text-color-white
+@each $var in ($bg-color, $text-color) {
+  @include colors($var);
+}

@@ -1,0 +1,23 @@
+@mixin btn-group($root) {
+  &-group {
+    position: relative;
+    display: inline-flex;
+    vertical-align: middle;
+    #{$root} {
+      &:first-child:not(:last-child) {
+        border-bottom-right-radius: 0;
+        border-top-right-radius: 0;
+      }
+      &:not(:first-child):not(:last-child) {
+        border-radius: 0;
+      }
+      &:last-child:not(:first-child) {
+        border-bottom-left-radius: 0;
+        border-top-left-radius: 0;
+      }
+      & + #{$root} {
+        margin-left: -1px;
+      }
+    }
+  }
+}

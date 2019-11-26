@@ -1,0 +1,42 @@
+doctype html
+include _variables.pug
+include ../_mixins/_mix-include.pug
+html(lang="zxx")
+  head
+    meta(charset="utf-8")
+    meta(http-equiv="X-UA-Compatible" content="IE=edge")
+    meta(name="viewport" content="width=device-width")
+    meta(name="format-detection" content="telephone=no")
+    meta(name="format-detection" content="address=no")
+    block title
+      title=pojectTitle
+    meta(name="description" content="")
+    meta(name="keywords" content="")
+    +favicon
+    +icomoon
+    link(rel="stylesheet" href="https://use.fontawesome.com/releases/v5.11.2/css/all.css")
+    link(rel="stylesheet" href="css/vendor.min.css")
+    link(rel="stylesheet" href="css/app.min.css")
+    link(rel="stylesheet" href="css/custom.css")
+  body.page(class=bodyClasses)
+    .page-wrap
+      if header
+        // HEADER: START 
+        include ../_section/_static/_header.pug
+        // HEADER: END 
+      if main
+        // MAIN: START 
+        main.main
+          block content
+        // MAIN: END 
+      if footer
+        // FOOTER: START 
+        include ../_section/_static/_footer.pug
+        // FOOTER: END 
+    if modals
+      // MODALS: START 
+      include ../_section/_static/_modals.pug
+      // MODALS: END 
+    script(src=`${cdnjs}/jquery/3.4.1/jquery.min.js`)
+    script(src="js/vendor.min.js")
+    script(src="js/app.js")

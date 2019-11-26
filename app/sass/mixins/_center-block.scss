@@ -1,0 +1,40 @@
+// Centering inline-block and ::before
+// @example: http://codepen.io/podolskiis/pen/wovVPx
+@mixin center-inline {
+  text-align: center;
+  white-space: nowrap;
+  &::before {
+    content: '';
+    display: inline-block;
+    height: 100%;
+    vertical-align: middle;
+    margin-right: -0.25em;
+  }
+  & > * {
+    white-space: normal;
+    display: inline-block;
+    vertical-align: middle;
+  }
+}
+
+
+// center vertically and/or horizontally an absolute positioned element
+@mixin center-transform($xy: xy) {
+  @if $xy == xy {
+    top: 50%;
+    left: 50%;
+    right: auto;
+    bottom: auto;
+    transform: translateX(-50%) translateY(-50%);
+  }
+  @else if $xy == x {
+    left: 50%;
+    right: auto;
+    transform: translateX(-50%);
+  }
+  @else if $xy == y {
+    top: 50%;
+    bottom: auto;
+    transform: translateY(-50%);
+  }
+}

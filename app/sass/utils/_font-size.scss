@@ -1,0 +1,6 @@
+$fz-begin: 50;
+$fz-finish: 200;
+@while $fz-begin <= $fz-finish {
+  .fz-#{$fz-begin}p { font-size: $fz-begin * 1% !important; }
+  $fz-begin: $fz-begin + 2;
+}
