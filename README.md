@@ -1,8 +1,8 @@
 ﻿# Start Project (26.11.2019)
 > Install
 
-1. Install https://nodejs.org/en/
-2. Install https://git-scm.com/downloads
+1. https://nodejs.org/en/
+2. https://git-scm.com/downloads
 3. $ sudo npm i -g gulp-cli
 
 > Start
