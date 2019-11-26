@@ -123,13 +123,12 @@ function watcher(done) {
   watch('app/pug/**/*', parallel(template));
   watch('app/js/**/*', reload);
   watch('app/*.html', reload);
-  // watch('gulpfile.js', vendor); // npm install -g gulp gulper
   done();
 }
 
 const dev = series(
-  style,
   vendor,
+  style,
   template,
   parallel(watcher, serve)
 )
