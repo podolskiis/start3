@@ -1,9 +1,0 @@
-node_modules
-app/css
-app/fonts/**/
-app/*.html
-dist
-www
-/**/*.DS_Store
-package-lock.json
-*.gitignore
