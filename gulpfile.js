@@ -1,5 +1,7 @@
 "use strict";
 const
+  laravel = false, // laravel: true, false
+  domain = laravel && 'domain.loc',
   { src, dest, watch, series, parallel } = require('gulp'),
   plumber = require('gulp-plumber'),
   sass = require('gulp-sass'),
@@ -9,6 +11,7 @@ const
   concat = require('gulp-concat'),
   rename = require('gulp-rename'),
   server = require('browser-sync').create(),
+  lodash = require('lodash'),
   pug = require('gulp-pug'),
   fs = require('fs'),
   cached = require('gulp-cached'),
@@ -17,7 +20,6 @@ const
   imagemin = require('gulp-imagemin'),
   pngquant = require('imagemin-pngquant'),
   rsync = require('gulp-rsync'),
-  lodash = require('lodash'),
   paths = {
     js: [
       'node_modules/bootstrap/dist/js/bootstrap.bundle.min.js',
@@ -30,27 +32,37 @@ const
       'node_modules/owl.carousel/dist/assets/owl.carousel.min.css',
       'node_modules/@fancyapps/fancybox/dist/jquery.fancybox.min.css',
     ],
-    json: 'app/pug/_base/_data.json',
+    html: laravel ? 'resources/views/**/*' : 'app/*.html',
+    script: laravel ? 'public/app/assets/js' : 'app/js',
+    style: {
+      src: laravel ? 'resources/sass/theme' : 'app/sass',
+      dest: laravel ? 'public/app/assets/css' : 'app/css',
+    },
+    template: {
+      src: 'app/pug',
+      dest: 'app',
+      json: 'app/pug/_base/_data.json',
+    },
     import: {
       home: {
         src: 'app/*.*',
-        dest: 'www'
+        dest: 'www',
       },
       fonts: {
         src: 'app/fonts/**',
-        dest: 'www/fonts'
+        dest: 'www/fonts',
       },
       css: {
         src: 'app/css/**',
-        dest: 'www/css'
+        dest: 'www/css',
       },
       js: {
         src: 'app/js/**',
-        dest: 'www/js'
+        dest: 'www/js',
       },
       video: {
         src: 'app/video/**',
-        dest: 'www/video'
+        dest: 'www/video',
       }
     }
   };
@@ -67,7 +79,8 @@ function reload(done) {
 
 function serve(done) {
   server.init({
-    server: { baseDir: 'app' },
+    proxy: laravel && domain,
+    server: !laravel && 'app',
     notify: false,
   });
   done();
@@ -75,43 +88,43 @@ function serve(done) {
 
 // sass
 function style() {
-  return src('app/sass/*.scss')
+  return src(paths.style.src + '/*.+(scss|sass)')
     .pipe(plumber())
     .pipe(sass())
     .pipe(autoprefixer({ overrideBrowserslist: ['last 8 versions'] }))
     .pipe(gcmq())
     .pipe(csso())
     .pipe(rename({ suffix: '.min' }))
-    .pipe(dest('app/css'))
+    .pipe(dest(paths.style.dest))
     .pipe(server.stream())
 }
 
 // pug
 function template() {
-  return src('app/pug/*.pug')
+  return src(paths.template.src + '/*.pug')
     .pipe(plumber())
     .pipe(pug({
       pretty: '\t',
-      locals: JSON.parse(fs.readFileSync(paths.json, 'utf-8'))
+      locals: JSON.parse(fs.readFileSync(paths.template.json, 'utf-8'))
     }))
     .pipe(plumber.stop())
     .pipe(cached('pug'))
-    .pipe(dest('app'))
+    .pipe(dest(paths.template.dest))
     .pipe(server.stream())
 }
 
 // concatenate vendor files
 function vendor(done) {
   lodash(paths).forEach(function (dist, type) {
-    if (type == 'js' && dist.length) {
-      return src(dist)
-        .pipe(concat('vendor.min.js'))
-        .pipe(dest('app/js'))
-    }
-    else if (type == 'css' && dist.length) {
+    if (type == 'css' && dist.length) {
       return src(dist)
         .pipe(concat('vendor.min.css'))
-        .pipe(dest('app/css'))
+        .pipe(dest(paths.style.dest))
+    }
+    else if (type == 'js' && dist.length) {
+      return src(dist)
+        .pipe(concat('vendor.min.js'))
+        .pipe(dest(paths.script))
     }
   })
   done();
@@ -119,17 +132,15 @@ function vendor(done) {
 
 // watch for changes
 function watcher(done) {
-  watch('app/sass/**/*', parallel(style));
-  watch('app/pug/**/*', parallel(template));
-  watch('app/js/**/*', reload);
-  watch('app/*.html', reload);
+  watch(paths.style.src + '/**/*', parallel(style));
+  !laravel && watch(paths.template.src + '/**/*', parallel(template));
+  watch(paths.script + '/**/*', reload);
+  watch(paths.html, reload);
   done();
 }
 
 const dev = series(
-  vendor,
-  style,
-  template,
+  vendor, // style, template,
   parallel(watcher, serve)
 )
 
@@ -179,7 +190,7 @@ const build = series(
 function sync() {
   return src('www/**/*')
     .pipe(rsync({
-      root: 'www/',
+      root: 'www',
       hostname: 'podolskiis@vh54.timeweb.ru',
       destination: 'sergeypodolsky.ru/public_html/work/2019/12/start',
       archive: true,
