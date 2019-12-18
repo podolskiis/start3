@@ -1,5 +1,5 @@
 (function ($) {
-  "use strict";
+  'use strict';
 
   var $b;
 
@@ -7,7 +7,7 @@
 
     // Launch Functions
     Launch: function () {
-      // fn.OwlCarousel();
+      // fn.owlCarousel();
       fn.bsModal();
       fn.fieldLabel();
       fn.fieldIcon();
@@ -15,7 +15,7 @@
     },
 
     // Owl Carousel
-    OwlCarousel: function () {
+    owlCarousel: function () {
       $b = $('[data-carousel="owl"]');
       var defaulOptions = {
         navText: [

@@ -17,22 +17,21 @@
       }
     }
     // VALIDATE
+    &:valid:not(:placeholder-shown):not(:focus),
+    &.valid:not(:focus) {
+      border-color: green !important;
+    }
+    &:invalid:not(:placeholder-shown):not(:focus),
+    &.error:not(:focus) {
+      border-color: red !important;
+      + #{$root}__text-error {
+        display: block !important;
+      }
+    }
+    & + .error,
     & + #{$root}__text-error {
-      display: none;
-      color: $input-bg-error-color;
-    }
-    &:valid {
-      &:not(:placeholder-shown) {
-        background-color: $input-bg-focus-color;
-      }
-    }
-    &:invalid {
-      &:not(:placeholder-shown) {
-      	border-color: $input-bg-error-color;
-        + #{$root}__text-error {
-          display: block;
-        }
-      }
+      display: none !important;
+      color: red;
     }
   }
   textarea#{$root}__field {

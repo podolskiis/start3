@@ -4,6 +4,7 @@ const
   domain = laravel && 'domain.loc',
   { src, dest, watch, series, parallel } = require('gulp'),
   plumber = require('gulp-plumber'),
+  sourcemaps = require('gulp-sourcemaps'),
   sass = require('gulp-sass'),
   autoprefixer = require('gulp-autoprefixer'),
   csso = require('gulp-csso'),
@@ -20,15 +21,19 @@ const
   imagemin = require('gulp-imagemin'),
   pngquant = require('imagemin-pngquant'),
   rsync = require('gulp-rsync'),
+  rev = require('gulp-rev-append'),
+  gulpif = require('gulp-if'),
+  formatHtml = require('gulp-format-html'),
+  prettyHtml = require('gulp-pretty-html'),
   paths = {
     js: [
       'node_modules/bootstrap/dist/js/bootstrap.bundle.min.js',
-      'node_modules/bootstrap-select/dist/js/bootstrap-select.min.js',
+      // 'node_modules/bootstrap-select/dist/js/bootstrap-select.min.js',
       'node_modules/owl.carousel/dist/owl.carousel.min.js',
       'node_modules/@fancyapps/fancybox/dist/jquery.fancybox.min.js',
     ],
     css: [
-      'node_modules/bootstrap-select/dist/css/bootstrap-select.min.css',
+      // 'node_modules/bootstrap-select/dist/css/bootstrap-select.min.css',
       'node_modules/owl.carousel/dist/assets/owl.carousel.min.css',
       'node_modules/@fancyapps/fancybox/dist/jquery.fancybox.min.css',
     ],
@@ -44,8 +49,8 @@ const
       json: 'app/pug/_base/_data.json',
     },
     import: {
-      home: {
-        src: 'app/*.*',
+      html: {
+        src: 'app/*.html',
         dest: 'www',
       },
       fonts: {
@@ -116,15 +121,17 @@ function template() {
 // concatenate vendor files
 function vendor(done) {
   lodash(paths).forEach(function (dist, type) {
+    if (type == 'js' && dist.length) {
+      return src(dist)
+        .pipe(sourcemaps.init())
+        .pipe(concat('vendor.min.js'))
+        .pipe(sourcemaps.write('.'))
+        .pipe(dest(paths.script))
+    }
     if (type == 'css' && dist.length) {
       return src(dist)
         .pipe(concat('vendor.min.css'))
         .pipe(dest(paths.style.dest))
-    }
-    else if (type == 'js' && dist.length) {
-      return src(dist)
-        .pipe(concat('vendor.min.js'))
-        .pipe(dest(paths.script))
     }
   })
   done();
@@ -140,7 +147,7 @@ function watcher(done) {
 }
 
 const dev = series(
-  vendor, // style, template,
+  vendor, style, template,
   parallel(watcher, serve)
 )
 
@@ -169,8 +176,13 @@ function images() {
 function files(done) {
   lodash(paths).forEach(function (dist, type) {
     if (type == 'import') {
-      lodash(dist).forEach(function (val) {
+      lodash(dist).forEach(function (val, key) {
         return src(val.src)
+          .pipe(gulpif(key == 'html', rev()))
+          .pipe(gulpif(key == 'html', formatHtml()))
+          .pipe(gulpif(key == 'html', prettyHtml({
+            unformatted: ['code', 'pre', 'em', 'strong', 'i', 'b', 'br']
+          })))
           .pipe(dest(val.dest))
       })
     }

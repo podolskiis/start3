@@ -1,6 +1,7 @@
 node_modules
-app/css
-app/fonts/**/
+app/css/*
+!app/css/custom.css
+app/fonts/*
 app/*.html
 dist
 www
