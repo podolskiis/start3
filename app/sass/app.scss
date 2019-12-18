@@ -4,10 +4,8 @@
 @import 'mixins/import';
 
 // Fonts
-// @import url('');
-@each $fw in 300,400,600,700,800 {
-  @include woff-font('Open Sans', 'opensans', $fw, n i);
-}
+@import 'base/fonts';
+
 
 // Bootstrap
 @import '../../node_modules/bootstrap/scss/bootstrap';

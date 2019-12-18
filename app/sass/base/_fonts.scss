@@ -1,0 +1,20 @@
+// vendor fonts
+@import url('https://use.fontawesome.com/releases/v5.11.2/css/all.css');
+
+// mixin fonts
+// @each $fw in 300,400,600,700,800 {
+//   @include woff-font('Open Sans', 'opensans', $fw, n i);
+// }
+
+// $fonts: ( ДОРАБОТАТЬ 
+//   'Open Sans': (300,400,600,700,800)
+// );
+// @each $ff, $fw in $fonts {
+//   $fSpace: str-index($ff, ' ');
+//   $fBefore: str-slice($ff, 1, $fSpace - 1);
+//   $fAfter: str-slice($ff, $fSpace + 1);
+//   $urlPatch: to-lower-case($fBefore + $fAfter);
+//   @each $fw in $fw {
+//     @include woff-font($ff, $urlPatch, $fw, n i);
+//   }
+// }

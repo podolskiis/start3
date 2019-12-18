@@ -13,45 +13,49 @@ block content
             .col.col-12.col-md-6
               .test
                 | #{x}
-  .container
-    +b-breadcrumb(['Главная','Категория','Заголовок статьи']).hide-lg-max
-    h1.mt-0
-      | Title
-    p
-      a(data-fancybox href="https://source.unsplash.com/IvfoDk30JnI/1500x1000")
-        <img src="https://source.unsplash.com/IvfoDk30JnI/240x160" />
-    p
-      a(href="#", data-toggle="modal" data-target='#modal-inform')
-        | open modal
-    - for (var x = 1; x <= 2; x++)
-      +p
-    form.form.form--tm-1
-      .form__field.b-field-icon.b-field-label
-        input(type="text" size="30" placeholder="search" required).b-field-icon__field.b-field-label__field
-        button(type="submit").bt.b-field-icon__icon.b-field-icon__icon--over
-          i.fas.fa-search
-    br
-    form.form.form--tm-1
-      .form__group
-        label.form__label
-          | Ваше имя
-        input(name="name" type="text" placeholder="Ваше имя" required).form__field
-      .form__group
-        input(name="email" type="email" placeholder="Ваш e-mail" required).form__field
-      .form__group
-        input(name="phone" type="tel" placeholder="Ваш телефон" required).form__field
-      .form__group
-        textarea(name="msg" rows="5" placeholder="Сообщение" required).form__field.w-100
-      .form__group
-        +b-check('b-check--tm-1')(type="checkbox" checked)
-          | Я соглашаюсь на обработку 
-      .form__group
-        .row
-          - for (var x = 1; x <= 2; x++)
-            .col-auto
-              +b-check('b-check--tm-1')(name="name" type="radio" checked=(x==1)&&true)
-                | radio ##{x}
-      .form__group.form__group--bt
-        button.bt.bt--default
-          | Button
-          i.fas.fa-angle-right.icon.icon--layout-right
+    .container
+      .mb-3
+        +b-breadcrumb(['Главная','Категория','Заголовок статьи']).hide-lg-max
+      .mb-3
+        h1.m-0
+          | Title
+      .mb-3
+        p
+          a(data-fancybox href="https://source.unsplash.com/IvfoDk30JnI/1500x1000")
+            <img src="https://source.unsplash.com/IvfoDk30JnI/240x160" />
+        p
+          a(href="#", data-toggle="modal" data-target='#modal-inform')
+            | open modal
+        - for (var x = 1; x <= 2; x++)
+          +p
+      .mb-3
+        form.form.form--tm-1
+          .form__field.b-field-icon.b-field-label
+            input(type="text" size="30" placeholder="search" required).b-field-icon__field.b-field-label__field
+            button(type="submit").bt.b-field-icon__icon.b-field-icon__icon--over
+              i.fas.fa-search
+      .mb-0
+        form.form.form--tm-1
+          .form__group
+            label.form__label
+              | Ваше имя
+            input(name="name" type="text" placeholder="Ваше имя" required).form__field
+          .form__group
+            input(name="email" type="email" placeholder="Ваш e-mail" required).form__field
+          .form__group
+            input(name="phone" type="tel" placeholder="Ваш телефон" required).form__field
+          .form__group
+            textarea(name="msg" rows="5" placeholder="Сообщение" required).form__field.w-100
+          .form__group
+            +b-check('b-check--tm-1')(type="checkbox" checked)
+              | Я соглашаюсь на обработку 
+          .form__group
+            .row
+              - for (var x = 1; x <= 2; x++)
+                .col-auto
+                  +b-check('b-check--tm-1')(name="name" type="radio" checked=(x==1)&&true)
+                    | radio ##{x}
+          .form__group.form__group--bt
+            button.bt.bt--default
+              | Button
+              i.fas.fa-angle-right.icon.icon--layout-right
