@@ -4,7 +4,7 @@
 // mixin fonts
 // variant 2
 $fonts: (
-  'Open Sans': (300,400,600,700,800)
+  // 'Open Sans': (300,400,600,700,800)
 );
 
 @each $ff, $fw in $fonts {
