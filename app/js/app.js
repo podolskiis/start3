@@ -3,7 +3,7 @@
 
   var $b;
 
-  var fn = {
+  window.fn = {
 
     // Launch Functions
     Launch: function () {
@@ -155,7 +155,7 @@
   };
 
   $(document).ready(function () {
-    fn.Launch();
+    window.fn.Launch();
   });
 
 })(jQuery);

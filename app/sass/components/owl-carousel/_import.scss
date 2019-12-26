@@ -5,6 +5,12 @@
     background-color: #cccccc;
     padding: 20px;
   }
+  .owl-item {
+    img {
+      width: auto;
+      margin: auto;
+    }
+  }
   .owl-nav {
     button {
       position: absolute;
