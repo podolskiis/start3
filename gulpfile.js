@@ -204,7 +204,7 @@ function sync() {
     .pipe(rsync({
       root: 'www',
       hostname: 'podolskiis@vh54.timeweb.ru',
-      destination: 'sergeypodolsky.ru/public_html/work/2019/12/start',
+      destination: 'sergeypodolsky.ru/public_html/work/2020/01/start',
       archive: true,
       silent: false,
       compress: true
