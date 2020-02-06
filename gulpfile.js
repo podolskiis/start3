@@ -28,14 +28,14 @@ const
   paths = {
     js: [
       'node_modules/bootstrap/dist/js/bootstrap.bundle.min.js',
-      // 'node_modules/bootstrap-select/dist/js/bootstrap-select.min.js',
-      'node_modules/owl.carousel/dist/owl.carousel.min.js',
+      'node_modules/bootstrap-select/dist/js/bootstrap-select.min.js',
       'node_modules/@fancyapps/fancybox/dist/jquery.fancybox.min.js',
+      'node_modules/owl.carousel/dist/owl.carousel.min.js',
     ],
     css: [
-      // 'node_modules/bootstrap-select/dist/css/bootstrap-select.min.css',
-      'node_modules/owl.carousel/dist/assets/owl.carousel.min.css',
+      'node_modules/bootstrap-select/dist/css/bootstrap-select.min.css',
       'node_modules/@fancyapps/fancybox/dist/jquery.fancybox.min.css',
+      'node_modules/owl.carousel/dist/assets/owl.carousel.min.css',
     ],
     html: laravel ? 'resources/views/**/*' : 'app/*.html',
     script: laravel ? 'public/app/js' : 'app/js',
