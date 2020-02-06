@@ -36,13 +36,14 @@
 // block
 .b-logo {
   margin: 0;
-  display: inline-block;
-  vertical-align: top;
-  line-height: 0;
+  font-size: $fz-base;
+  font-weight: normal;
   &__link {
     text-decoration: none;
     color: inherit;
-    display: block;
+    display: flex;
+    align-items: center;
+    @include gx(15px);
     &:hover {
       text-decoration: none;
       color: inherit;

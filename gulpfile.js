@@ -1,7 +1,7 @@
 "use strict";
 const
+  domain = 'start',
   laravel = false, // laravel: true, false
-  domain = laravel && 'domain.loc',
   { src, dest, watch, series, parallel } = require('gulp'),
   plumber = require('gulp-plumber'),
   sourcemaps = require('gulp-sourcemaps'),
@@ -38,10 +38,10 @@ const
       'node_modules/@fancyapps/fancybox/dist/jquery.fancybox.min.css',
     ],
     html: laravel ? 'resources/views/**/*' : 'app/*.html',
-    script: laravel ? 'public/app/assets/js' : 'app/js',
+    script: laravel ? 'public/app/js' : 'app/js',
     style: {
-      src: laravel ? 'resources/sass/theme' : 'app/sass',
-      dest: laravel ? 'public/app/assets/css' : 'app/css',
+      src: laravel ? 'resources/sass/_theme' : 'app/sass/_theme',
+      dest: laravel ? 'public/app/css' : 'app/css',
     },
     template: {
       src: 'app/pug',
@@ -84,7 +84,7 @@ function reload(done) {
 
 function serve(done) {
   server.init({
-    proxy: laravel && domain,
+    proxy: laravel && domain+'.loc',
     server: !laravel && 'app',
     notify: false,
   });
@@ -204,7 +204,7 @@ function sync() {
     .pipe(rsync({
       root: 'www',
       hostname: 'podolskiis@vh54.timeweb.ru',
-      destination: 'sergeypodolsky.ru/public_html/work/2020/01/start',
+      destination: 'sergeypodolsky.ru/public_html/work/2020/01/'+domain,
       archive: true,
       silent: false,
       compress: true

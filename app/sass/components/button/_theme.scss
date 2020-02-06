@@ -51,6 +51,10 @@
   }
 }
 
+&[disabled] {
+  cursor: default;
+}
+
 // SIZE
 &--lg {
   @include btn-resize(1.25);
