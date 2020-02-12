@@ -17,11 +17,11 @@
       }
     }
     // VALIDATE
-    &:valid:not(:placeholder-shown):not(:focus),
+    // &:valid:not(:placeholder-shown):not(:focus),
     &.valid:not(:focus) {
       border-color: green !important;
     }
-    &:invalid:not(:placeholder-shown):not(:focus),
+    // &:invalid:not(:placeholder-shown):not(:focus),
     &.error:not(:focus) {
       border-color: red !important;
       + #{$root}__text-error {

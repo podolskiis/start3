@@ -17,7 +17,7 @@ h5,.h5,h6,.h6,b,strong,th,dt {
 p,.p,pre,.pre,ul,.ul,ol,.ol,dl,.dl {
   margin-top: 0;
   margin-bottom: ems($gutter-item-base);
-  &:last-child {
+  &:last-of-type {
     margin-bottom: 0;
   }
 }
