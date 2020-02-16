@@ -1,5 +1,6 @@
 "use strict";
 const
+  date = '2020/02',
   domain = 'start',
   laravel = false, // laravel: true, false
   { src, dest, watch, series, parallel } = require('gulp'),
@@ -22,7 +23,6 @@ const
   pngquant = require('imagemin-pngquant'),
   rsync = require('gulp-rsync'),
   rev = require('gulp-rev-append'),
-  gulpif = require('gulp-if'),
   formatHtml = require('gulp-format-html'),
   prettyHtml = require('gulp-pretty-html'),
   paths = {
@@ -49,10 +49,6 @@ const
       json: 'app/pug/_base/_data.json',
     },
     import: {
-      html: {
-        src: 'app/*.html',
-        dest: 'www',
-      },
       fonts: {
         src: 'app/fonts/**',
         dest: 'www/fonts',
@@ -84,7 +80,7 @@ function reload(done) {
 
 function serve(done) {
   server.init({
-    proxy: laravel && domain+'.loc',
+    proxy: laravel && domain + '.loc',
     server: !laravel && 'app',
     notify: false,
   });
@@ -160,7 +156,7 @@ function clean() {
   return del(['www']);
 }
 
-// Import and compress (images)
+// Import (images)
 function images() {
   return src('app/images/**')
     .pipe(cache(imagemin({
@@ -172,17 +168,23 @@ function images() {
     .pipe(dest('www/images'));
 }
 
-// Import all files
+// Import (html)
+function html() {
+  return src('app/*.html')
+    .pipe(rev())
+    .pipe(formatHtml())
+    .pipe(prettyHtml({
+      unformatted: ['code', 'pre', 'em', 'strong', 'i', 'b', 'br']
+    }))
+    .pipe(dest('www'));
+};
+
+// Import other files
 function files(done) {
   lodash(paths).forEach(function (dist, type) {
     if (type == 'import') {
       lodash(dist).forEach(function (val, key) {
         return src(val.src)
-          .pipe(gulpif(key == 'html', rev()))
-          .pipe(gulpif(key == 'html', formatHtml()))
-          .pipe(gulpif(key == 'html', prettyHtml({
-            unformatted: ['code', 'pre', 'em', 'strong', 'i', 'b', 'br']
-          })))
           .pipe(dest(val.dest))
       })
     }
@@ -192,7 +194,7 @@ function files(done) {
 
 const build = series(
   clean,
-  parallel(images, files)
+  parallel(html, images, files)
 )
 
 
@@ -204,7 +206,7 @@ function sync() {
     .pipe(rsync({
       root: 'www',
       hostname: 'podolskiis@vh54.timeweb.ru',
-      destination: 'sergeypodolsky.ru/public_html/work/2020/01/'+domain,
+      destination: 'sergeypodolsky.ru/public_html/work/' + date + '/' + domain,
       archive: true,
       silent: false,
       compress: true

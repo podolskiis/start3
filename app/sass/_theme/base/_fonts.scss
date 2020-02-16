@@ -1,8 +1,4 @@
-// vendor fonts
-@import url('https://use.fontawesome.com/releases/v5.11.2/css/all.css');
-
 // mixin fonts
-// variant 2
 $fonts: (
   // 'Open Sans': (300,400,600,700,800)
 );
@@ -10,12 +6,7 @@ $fonts: (
 @each $ff, $fw in $fonts {
   @if $ff {
     @each $fw in $fw {
-      @include woff-font($ff, font-path($ff), $fw, n i);
+      @include woff-font($ff, to-lower-case(str-replace($ff, ' ', '')), $fw, n i);
     }
   }
 }
-
-// variant 1
-// @each $fw in 300,400,600,700,800 {
-//   @include woff-font('Open Sans', 'opensans', $fw, n i);
-// }

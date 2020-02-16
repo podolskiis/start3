@@ -156,7 +156,7 @@
 
   $(document).ready(function () {
     window.fn.Launch();
-    $('[disabled]').on('click', function (e) { e.preventDefault() });
+    // $('[disabled]').on('click', function (e) { e.preventDefault() });
   });
 
 })(jQuery);

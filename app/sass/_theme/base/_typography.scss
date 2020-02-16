@@ -27,7 +27,7 @@ p,.p,pre,.pre,ul,.ul,ol,.ol,dl,.dl {
   margin: ems($gutter-item-base) 0;
 }
 
-a,.b-link {
+a,.b-link,.bt.b-link {
   cursor: pointer;
   text-decoration: none;
   color: $link-color-base;

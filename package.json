@@ -12,7 +12,6 @@
     "gulp-csso": "^4.0.1",
     "gulp-format-html": "^1.2.3",
     "gulp-group-css-media-queries": "^1.2.2",
-    "gulp-if": "^3.0.0",
     "gulp-imagemin": "^7.1.0",
     "gulp-plumber": "^1.2.1",
     "gulp-pretty-html": "^2.0.10",

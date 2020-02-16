@@ -3,11 +3,9 @@
 @import 'variables/import';
 @import 'mixins/import';
 
-// Fontawesome
-// @import url('https://use.fontawesome.com/releases/v5.11.2/css/all.css');
-
 // Fonts
 @import 'base/fonts';
+@import url('https://use.fontawesome.com/releases/v5.11.2/css/all.css');
 
 // Bootstrap
 @import '../../../node_modules/bootstrap/scss/bootstrap';
