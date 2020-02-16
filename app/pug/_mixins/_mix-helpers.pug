@@ -125,5 +125,5 @@ mixin html(title)
 
 mixin svg-sprite(id,z)
   - var z = (z) ? z : '1em'
-  svg(class=`icon icon-${id}` width=z height=z)&attributes(attributes)
-    use(xlink:href=`images/icons/spite.svg#${id}`)
+  svg(class=`ic ic-${id}` width=z height=z)&attributes(attributes)
+    use(xlink:href=`/images/icons/symbol/sprite.svg#${id}`)

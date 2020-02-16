@@ -18,9 +18,12 @@ const
   fs = require('fs'),
   cached = require('gulp-cached'),
   del = require('del'),
-  cache = require('gulp-cache'),
   imagemin = require('gulp-imagemin'),
   pngquant = require('imagemin-pngquant'),
+  svgmin = require('gulp-svgmin'),
+  svgSprite = require('gulp-svg-sprite'),
+  replace = require('gulp-replace'),
+  cheerio = require('gulp-cheerio'),
   rsync = require('gulp-rsync'),
   rev = require('gulp-rev-append'),
   formatHtml = require('gulp-format-html'),
@@ -133,17 +136,49 @@ function vendor(done) {
   done();
 }
 
+// svg
+function svg() {
+  return src('app/images/icons/svg/*.svg')
+    .pipe(plumber())
+    .pipe(svgmin({
+      js2svg: {
+        pretty: true
+      }
+    }))
+    .pipe(cheerio({
+      run: function ($) {
+        $('[fill]').removeAttr('fill');
+        $('[stroke]').removeAttr('stroke');
+        $('[style]').removeAttr('style');
+        $('[class]').removeAttr('style');
+      },
+      parserOptions: { xmlMode: true }
+    }))
+    .pipe(replace('&gt;', '>'))
+    .pipe(svgSprite({
+      mode: {
+        symbol: {
+          sprite: "sprite.svg"
+        }
+      }
+    }))
+    .pipe(dest('app/images/icons'))
+    .pipe(server.stream())
+}
+
+
 // watch for changes
 function watcher(done) {
   watch(paths.style.src + '/**/*', parallel(style));
   !laravel && watch(paths.template.src + '/**/*', parallel(template));
+  watch('app/images/icons/svg/*.svg', parallel(svg));
   watch(paths.script + '/**/*', reload);
   watch(paths.html, reload);
   done();
 }
 
 const dev = series(
-  vendor, style, template,
+  vendor, style, template, svg,
   parallel(watcher, serve)
 )
 
@@ -159,12 +194,18 @@ function clean() {
 // Import (images)
 function images() {
   return src('app/images/**')
-    .pipe(cache(imagemin({
-      interlaced: true,
-      progressive: true,
-      svgoPlugins: [{ removeViewBox: false }],
-      use: [pngquant()]
-    })))
+    .pipe(imagemin([
+      imagemin.gifsicle({ interlaced: true }),
+      imagemin.mozjpeg({ quality: 75, progressive: true }),
+      imagemin.optipng({ optimizationLevel: 5 }),
+      imagemin.svgo({
+        plugins: [
+          { removeViewBox: true },
+          { cleanupIDs: false },
+          pngquant()
+        ]
+      })
+    ]))
     .pipe(dest('www/images'));
 }
 
