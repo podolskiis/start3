@@ -24,8 +24,10 @@
     "gulp-sourcemaps": "^2.6.5",
     "gulp-svg-sprite": "^1.5.0",
     "gulp-svgmin": "^2.2.0",
+    "gulp-util": "^3.0.8",
     "imagemin-pngquant": "^8.0.0",
-    "lodash": "^4.17.15"
+    "lodash": "^4.17.15",
+    "vinyl-ftp": "^0.6.1"
   },
   "dependencies": {
     "@fancyapps/fancybox": "^3.5.7",

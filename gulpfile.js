@@ -1,7 +1,8 @@
 "use strict";
 const
   date = '2020/02',
-  domain = 'start',
+  project = 'start',
+  hostUrl = 'sergeypodolsky.ru/public_html/work/' + date + '/' + project,
   laravel = false, // laravel: true, false
   { src, dest, watch, series, parallel } = require('gulp'),
   plumber = require('gulp-plumber'),
@@ -25,6 +26,8 @@ const
   replace = require('gulp-replace'),
   cheerio = require('gulp-cheerio'),
   rsync = require('gulp-rsync'),
+  gutil = require('gulp-util'),
+  ftp = require('vinyl-ftp'),
   rev = require('gulp-rev-append'),
   formatHtml = require('gulp-format-html'),
   prettyHtml = require('gulp-pretty-html'),
@@ -83,7 +86,7 @@ function reload(done) {
 
 function serve(done) {
   server.init({
-    proxy: laravel && domain + '.loc',
+    proxy: laravel && project + '.loc',
     server: !laravel && 'app',
     notify: false,
   });
@@ -147,8 +150,8 @@ function svg() {
     }))
     .pipe(cheerio({
       run: function ($) {
-        $('[fill]').removeAttr('fill');
-        $('[stroke]').removeAttr('stroke');
+        // $('[fill]').removeAttr('fill');
+        // $('[stroke]').removeAttr('stroke');
         $('[style]').removeAttr('style');
         $('[class]').removeAttr('style');
       },
@@ -163,7 +166,6 @@ function svg() {
       }
     }))
     .pipe(dest('app/images/icons'))
-    .pipe(server.stream())
 }
 
 
@@ -171,7 +173,7 @@ function svg() {
 function watcher(done) {
   watch(paths.style.src + '/**/*', parallel(style));
   !laravel && watch(paths.template.src + '/**/*', parallel(template));
-  watch('app/images/icons/svg/*.svg', parallel(svg));
+  watch('app/images/icons/svg/*.svg', series(svg, parallel(reload)));
   watch(paths.script + '/**/*', reload);
   watch(paths.html, reload);
   done();
@@ -243,25 +245,36 @@ const build = series(
 ********************************************************/
 
 function sync() {
-  return src('www/**/*')
+  return src('www/**')
     .pipe(rsync({
       root: 'www',
       hostname: 'podolskiis@vh54.timeweb.ru',
-      destination: 'sergeypodolsky.ru/public_html/work/' + date + '/' + domain,
+      destination: hostUrl,
       archive: true,
       silent: false,
       compress: true
     }));
 }
 
-const bs = series(
-  build,
-  parallel(sync)
-)
+function http() {
+  var conn = ftp.create({
+    host: '92.53.96.109',
+    user: 'podolskiis',
+    password: '888888',
+    parallel: 10,
+    log: gutil.log
+  });
+
+  return src('www/**', { buffer: false })
+    .pipe(conn.dest(hostUrl));
+}
 
 
 /* EXPORT TASKS
  ********************************************************/
 exports.default = dev;
-exports.build = build;
-exports.bs = bs;
+exports.bld = build;
+exports.sync = sync;
+exports.http = http;
+exports.bs = series(build, sync);
+exports.bf = series(build, http);
