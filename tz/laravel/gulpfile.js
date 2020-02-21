@@ -37,7 +37,7 @@ const
 /* DEV PROCESSING
  ********************************************************/
 
-// browser-sync
+// Browser-sync
 function reload(done) {
   server.reload();
   done();
@@ -52,20 +52,7 @@ function serve(done) {
   done();
 }
 
-// sass
-function style() {
-  return src(paths.style.src + '/*.+(scss|sass)')
-    .pipe(plumber())
-    .pipe(sass())
-    .pipe(autoprefixer({ overrideBrowserslist: ['last 8 versions'] }))
-    .pipe(gcmq())
-    .pipe(csso())
-    .pipe(rename({ suffix: '.min' }))
-    .pipe(dest(paths.style.dest))
-    .pipe(server.stream())
-}
-
-// concatenate vendor files
+// Concatenate vendor files
 function vendor(done) {
   lodash(paths).forEach(function (dist, type) {
     if (type == 'js' && dist.length) {
@@ -84,7 +71,49 @@ function vendor(done) {
   done();
 }
 
-// watch for changes
+// Sass
+function style() {
+  return src(paths.style.src + '/*.+(scss|sass)')
+    .pipe(plumber())
+    .pipe(sass())
+    .pipe(autoprefixer({ overrideBrowserslist: ['last 8 versions'] }))
+    .pipe(gcmq())
+    .pipe(csso())
+    .pipe(rename({ suffix: '.min' }))
+    .pipe(dest(paths.style.dest))
+    .pipe(server.stream())
+}
+
+// Svg
+function svg() {
+  return src('app/images/icons/svg/*.svg')
+    .pipe(plumber())
+    .pipe(svgmin({
+      js2svg: {
+        pretty: true
+      }
+    }))
+    .pipe(cheerio({
+      run: function ($) {
+        // $('[fill]').removeAttr('fill');
+        // $('[stroke]').removeAttr('stroke');
+        $('[style]').removeAttr('style');
+        $('[class]').removeAttr('class');
+      },
+      parserOptions: { xmlMode: true }
+    }))
+    .pipe(replace('&gt;', '>'))
+    .pipe(svgSprite({
+      mode: {
+        symbol: {
+          sprite: "sprite.svg"
+        }
+      }
+    }))
+    .pipe(dest('app/images/icons'))
+}
+
+// Watch for changes
 function watcher(done) {
   watch(paths.style.src + '/**/*', parallel(style));
   watch(paths.script + '/**/*', reload);
@@ -96,8 +125,4 @@ const dev = series(
   vendor, style,
   parallel(watcher, serve)
 )
-
-
-/* EXPORT TASKS
- ********************************************************/
 exports.default = dev;

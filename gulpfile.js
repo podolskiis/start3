@@ -15,16 +15,16 @@ const
   rename = require('gulp-rename'),
   server = require('browser-sync').create(),
   lodash = require('lodash'),
+  svgmin = require('gulp-svgmin'),
+  svgSprite = require('gulp-svg-sprite'),
+  replace = require('gulp-replace'),
+  cheerio = require('gulp-cheerio'),
   pug = require('gulp-pug'),
   fs = require('fs'),
   cached = require('gulp-cached'),
   del = require('del'),
   imagemin = require('gulp-imagemin'),
   pngquant = require('imagemin-pngquant'),
-  svgmin = require('gulp-svgmin'),
-  svgSprite = require('gulp-svg-sprite'),
-  replace = require('gulp-replace'),
-  cheerio = require('gulp-cheerio'),
   rsync = require('gulp-rsync'),
   gutil = require('gulp-util'),
   ftp = require('vinyl-ftp'),
@@ -48,6 +48,10 @@ const
     style: {
       src: laravel ? 'resources/sass/_theme' : 'app/sass/_theme',
       dest: laravel ? 'public/app/css' : 'app/css',
+    },
+    svg: {
+      src: laravel ? 'public/app/images/icons/svg/**/*' : 'app/images/icons/svg/**/*',
+      dest: laravel ? 'public/app/images/icons' : 'app/images/icons',
     },
     template: {
       src: 'app/pug',
@@ -78,7 +82,7 @@ const
 /* DEV PROCESSING
  ********************************************************/
 
-// browser-sync
+// Browser-sync
 function reload(done) {
   server.reload();
   done();
@@ -93,34 +97,7 @@ function serve(done) {
   done();
 }
 
-// sass
-function style() {
-  return src(paths.style.src + '/*.+(scss|sass)')
-    .pipe(plumber())
-    .pipe(sass())
-    .pipe(autoprefixer({ overrideBrowserslist: ['last 8 versions'] }))
-    .pipe(gcmq())
-    .pipe(csso())
-    .pipe(rename({ suffix: '.min' }))
-    .pipe(dest(paths.style.dest))
-    .pipe(server.stream())
-}
-
-// pug
-function template() {
-  return src(paths.template.src + '/*.pug')
-    .pipe(plumber())
-    .pipe(pug({
-      pretty: '\t',
-      locals: JSON.parse(fs.readFileSync(paths.template.json, 'utf-8'))
-    }))
-    .pipe(plumber.stop())
-    .pipe(cached('pug'))
-    .pipe(dest(paths.template.dest))
-    .pipe(server.stream())
-}
-
-// concatenate vendor files
+// Concatenate vendor files
 function vendor(done) {
   lodash(paths).forEach(function (dist, type) {
     if (type == 'js' && dist.length) {
@@ -139,9 +116,22 @@ function vendor(done) {
   done();
 }
 
-// svg
+// Sass
+function style() {
+  return src(paths.style.src + '/*.+(scss|sass)')
+    .pipe(plumber())
+    .pipe(sass())
+    .pipe(autoprefixer({ overrideBrowserslist: ['last 8 versions'] }))
+    .pipe(gcmq())
+    .pipe(csso())
+    .pipe(rename({ suffix: '.min' }))
+    .pipe(dest(paths.style.dest))
+    .pipe(server.stream())
+}
+
+// Svg
 function svg() {
-  return src('app/images/icons/svg/*.svg')
+  return src(paths.svg.src)
     .pipe(plumber())
     .pipe(svgmin({
       js2svg: {
@@ -153,7 +143,7 @@ function svg() {
         // $('[fill]').removeAttr('fill');
         // $('[stroke]').removeAttr('stroke');
         $('[style]').removeAttr('style');
-        $('[class]').removeAttr('style');
+        $('[class]').removeAttr('class');
       },
       parserOptions: { xmlMode: true }
     }))
@@ -165,11 +155,24 @@ function svg() {
         }
       }
     }))
-    .pipe(dest('app/images/icons'))
+    .pipe(dest(paths.svg.dest))
 }
 
+// Pug
+function template() {
+  return src(paths.template.src + '/*.pug')
+    .pipe(plumber())
+    .pipe(pug({
+      pretty: '\t',
+      locals: JSON.parse(fs.readFileSync(paths.template.json, 'utf-8'))
+    }))
+    .pipe(plumber.stop())
+    .pipe(cached('pug'))
+    .pipe(dest(paths.template.dest))
+    .pipe(server.stream())
+}
 
-// watch for changes
+// Watch for changes
 function watcher(done) {
   watch(paths.style.src + '/**/*', parallel(style));
   !laravel && watch(paths.template.src + '/**/*', parallel(template));
@@ -183,9 +186,10 @@ const dev = series(
   vendor, style, template, svg,
   parallel(watcher, serve)
 )
+exports.default = dev;
 
 
-/* BUILD
+/* BUILD PROCESSING
  ********************************************************/
 
 // Clean (dir)
@@ -239,9 +243,10 @@ const build = series(
   clean,
   parallel(html, images, files)
 )
+exports.bld = build;
 
 
-/* PROCESSING SYNC
+/* DEPLOY PROCESSING
 ********************************************************/
 
 function sync() {
@@ -266,14 +271,11 @@ function http() {
   });
 
   return src('www/**', { buffer: false })
-    .pipe(conn.dest(hostUrl));
+    .pipe(conn.dest(hostUrl)); // to the root './'
 }
 
-
-/* EXPORT TASKS
+/* TASKS
  ********************************************************/
-exports.default = dev;
-exports.bld = build;
 exports.sync = sync;
 exports.http = http;
 exports.bs = series(build, sync);
