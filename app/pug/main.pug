@@ -22,3 +22,22 @@ block content
             | open modal
         - for (var x = 1; x <= 2; x++)
           +p
+    .container
+      form(action="")
+        .form-group
+          .form-field.form-field--tm-1.form-field-icon
+            input(name="" type='text' size='30' placeholder='search' required).form-field.order-1
+            button(type="button").bt.form-field-icon__icon
+              i.fas.fa-search
+        .form-group
+          label.form-label
+            | Ваше имя
+          input(name="" type="text" placeholder="Ваше имя" required).form-field.form-field--tm-1
+        .form-group
+          input(name="" type="email" placeholder="Ваш e-mail" required).form-field.form-field--tm-1
+        .form-group
+          input(name="" type="tel" placeholder="Ваш телефон" required).form-field.form-field--tm-1.w-100
+        .form-group
+          textarea(name="" rows="5" placeholder="Сообщение" required).form-field.form-field--tm-1.w-100
+        .form-group.form-group--bt
+          button(type="submit").bt.bt--default submit

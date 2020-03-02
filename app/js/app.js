@@ -9,7 +9,6 @@
     Launch: function () {
       // fn.owlCarousel();
       fn.bsModal();
-      fn.fieldLabel();
       fn.fieldIcon();
       fn.checkedBcheck();
     },
@@ -111,29 +110,26 @@
       });
     },
 
-    // Valid Field-label
-    fieldLabel: function () {
-      $b = $('.b-field-label');
+    // Focus Field-icon
+    fieldIcon: function () {
+      $b = $('.form-field-icon');
       $b.each(function () {
-        $(this).find('.b-field-label__field').on('change', function () {
+        $(this).find('.form-field:not([readonly])').on('focus', function () {
+          $(this).parent().addClass('focus');
+          $(this).on('blur', function () {
+            $(this).parent().removeClass('focus');
+          });
+        });
+        $(this).find('input').on('change', function () {
           if ($(this).val() != '') {
             $(this).add($(this).parent()).addClass('valid');
           } else {
             $(this).add($(this).parent()).removeClass('valid');
           }
         }).trigger('change');
-      });
-    },
-
-    // Focus Field-icon
-    fieldIcon: function () {
-      $b = $('.b-field-icon');
-      $b.each(function () {
-        $(this).find('.b-field-icon__field:not([readonly])').on('focus', function () {
-          $(this).parent().addClass('focus');
-          $(this).on('blur', function () {
-            $(this).parent().removeClass('focus');
-          });
+        $(this).find('[data-input="focus"]').on('click', function (e) {
+          e.preventDefault();
+          $(this).closest('.form-field-icon').find('input').focus();
         });
       });
     },
@@ -156,7 +152,7 @@
 
   $(document).ready(function () {
     window.fn.Launch();
-    // $('[disabled]').on('click', function (e) { e.preventDefault() });
+    $('[disabled]').on('click', function (e) { e.preventDefault() });
   });
 
 })(jQuery);

@@ -176,7 +176,7 @@ function template() {
 function watcher(done) {
   watch(paths.style.src + '/**/*', parallel(style));
   !laravel && watch(paths.template.src + '/**/*', parallel(template));
-  watch('app/images/icons/svg/*.svg', series(svg, parallel(reload)));
+  watch(paths.svg.src, series(svg, parallel(reload)));
   watch(paths.script + '/**/*', reload);
   watch(paths.html, reload);
   done();

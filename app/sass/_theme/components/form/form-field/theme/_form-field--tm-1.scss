@@ -1,0 +1,32 @@
+.form-field--tm-1 {
+  &,
+  .form-field {
+    @include field-input;
+    &::placeholder {
+      @include tsn-all;
+      color: $placeholder-color;
+      font-weight: $input-font-weight;
+    }
+    &:focus,
+    &.focus {
+      &::placeholder {
+        color: $placeholder-focus-color;
+      }
+    }
+    & ~ [class*="__icon"] {
+      color: $placeholder-color;
+      &.bt:hover {
+        color: $input-font-color;
+      }
+    }
+    &[class*="order"] ~ [class*="__icon"] {
+      margin-right: $input-padding-x;
+    }
+    &:not([class*="order"]) ~ [class*="__icon"] {
+      margin-left: $input-padding-x;
+    }
+  }
+}
+textarea.form-field--tm-1 {
+  min-height: 100px;
+}

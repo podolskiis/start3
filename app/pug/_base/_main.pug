@@ -18,6 +18,10 @@ html(lang="zxx")
     link(rel="stylesheet" href="css/app.min.css?rev=@@hash")
     link(rel="stylesheet" href="css/custom.css")
   body.page(class=bodyClasses)
+    if before
+      // before: START 
+      include ../_section/_static/_before.pug
+      // before: END 
     .page-wrap
       if header
         // HEADER: START 
@@ -38,4 +42,5 @@ html(lang="zxx")
       // MODALS: END 
     script(src=`${cdnjs}/jquery/3.4.1/jquery.min.js`)
     script(src="js/vendor.min.js?rev=@@hash")
+    block script
     script(src="js/app.js?rev=@@hash")
