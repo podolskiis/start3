@@ -19,6 +19,9 @@
         color: $input-font-color;
       }
     }
+    &.valid ~ [class*="__icon"] {
+      color: $input-font-color;
+    }
     &[class*="order"] ~ [class*="__icon"] {
       margin-right: $input-padding-x;
     }
