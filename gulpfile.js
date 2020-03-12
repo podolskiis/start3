@@ -182,11 +182,21 @@ function watcher(done) {
   done();
 }
 
-const dev = series(
+
+const dev_hpml = series(
   vendor, style, template, svg,
   parallel(watcher, serve)
 )
-exports.default = dev;
+const dev_php = series(
+  vendor, style, svg,
+  parallel(watcher, serve)
+)
+
+if (!laravel) {
+  exports.default = dev_hpml;
+} else {
+  exports.default = dev_php;
+}
 
 
 /* BUILD PROCESSING

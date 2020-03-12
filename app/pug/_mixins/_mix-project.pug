@@ -1,11 +1,11 @@
 mixin bs-modal-close
-  span.bt(data-dismiss="modal" aria-label="Close")&attributes(attributes)
+  span.bt(data-dismiss="modal")&attributes(attributes)
     <i class="fas fa-times"></i>
 mixin bs-modal
-  .modal.fade(tabindex="-1" role="dialog" aria-labelledby="..." aria-hidden="true")&attributes(attributes)
+  .modal.fade(tabindex="-1" role="dialog")&attributes(attributes)
     block
 mixin b-logo(img,ht)
-  h2.b-logo&attributes(attributes)
+  .b-logo&attributes(attributes)
     a.b-logo__link(href="/")
       img.b-logo__img(src=`images/theme/${img}` height=ht alt)
       //- span.b-logo__title= poject
