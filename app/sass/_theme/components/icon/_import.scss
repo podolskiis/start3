@@ -1,10 +1,10 @@
-$icon-spacing-y: unit(8px);
+$icon-spacing-y: .3em;
 
 @include font('icomoon','icomoon/icomoon');
-[class^="icon-"],[class*=" icon-"] {@include icomoon}
+[class^="icon-"],[class*=" icon-"] {@include ic}
 @import 'icomoon';
 
-.icon {
+.ic {
   &--middle {
     display: inline-block;
     vertical-align: middle;

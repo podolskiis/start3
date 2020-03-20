@@ -12,7 +12,7 @@
 }
 
 // THEME
-&--default {
+&--tm-1 {
   @extend #{$root}--base;
   background: $link-color-base;
   color: #fff;
@@ -25,7 +25,7 @@
   }
 }
 
-&--default-outline {
+&--tm-outline-1 {
   @extend #{$root}--base;
   border-color: $link-color-base;
   color: $link-color-base;
@@ -40,7 +40,7 @@
   }
 }
 
-&--default-link {
+&--tm-link-1 {
   @extend #{$root}--base;
   color: $link-color-base;
   &:hover, &.hover {

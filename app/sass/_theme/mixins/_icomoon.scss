@@ -19,7 +19,7 @@
 		text-transform: none;
   }
 }
-@mixin icomoon() {
+@mixin ic() {
 	@include icon-base('icomoon', 400);
 }
 
