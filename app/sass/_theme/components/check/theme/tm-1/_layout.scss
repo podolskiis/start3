@@ -34,9 +34,6 @@ $check: 'check'; // check | square
     border-radius: $ch-border-radius;
     width: $ch-size;
     height: $ch-size;
-    &::before {
-      @include tsn-all;
-    }
   }
   [type="checkbox"] + #{$root}__checked{
     &::before {
@@ -58,7 +55,6 @@ $check: 'check'; // check | square
     }
   }
   #{$root}__val {
-    font-size: $ch-text-font-size;
   }
   #{$root}__input {
     // hover

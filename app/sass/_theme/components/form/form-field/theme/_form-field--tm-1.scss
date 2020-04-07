@@ -15,6 +15,7 @@
     }
     & ~ [class*="__icon"] {
       color: $placeholder-color;
+      font-size: $input-size-icon;
       &.bt:hover {
         color: $input-font-color;
       }

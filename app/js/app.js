@@ -103,10 +103,9 @@
       }).on('hidden.bs.modal', function (e) {
         $('body').removeClass('modal-open modal-open--' + $(this).attr('id'));
         $b.removeClass('active');
-      }).on('click', function (event) {
-        if ($(this).is('[data-close="previous-modal"]')) {
-          $('.modal').modal('hide');
-        }
+      });
+      $('[data-close="previous-modal"]').on('show.bs.modal', function (e) {
+        $('.modal').not(this).modal('hide');
       });
     },
 
@@ -130,6 +129,13 @@
         $(this).find('[data-input="focus"]').on('click', function (e) {
           e.preventDefault();
           $(this).closest('.form-field-icon').find('input').focus();
+        });
+        $(this).find('[type="password"]').next().on('click', function () {
+          if ($(this).is('.active')) {
+            $(this).removeClass('active').prev().removeClass('active').removeAttr('type').attr('type', 'password');
+          } else {
+            $(this).addClass('active password').prev().addClass('active password').removeAttr('type').attr('type', 'text');
+          }
         });
       });
     },

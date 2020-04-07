@@ -12,6 +12,12 @@
   height: $input-height;
   padding: $input-padding-y $input-padding-x;
   vertical-align: middle;
+  @-webkit-keyframes autofill {
+    to {
+      color: $input-font-color;
+      background-color: $input-bg-color;
+    }
+  }
   &:focus, &.focus {
     background-color: $input-bg-focus-color;
     border-color: $input-border-focus-color;

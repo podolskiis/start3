@@ -17,7 +17,7 @@ h5,.h5,h6,.h6,b,strong,th,dt {
 p,.p,pre,.pre,ul,.ul,ol,.ol,dl,.dl {
   margin-top: 0;
   margin-bottom: ems($gutter-item-base);
-  &:last-of-type {
+  &:last-child {
     margin-bottom: 0;
   }
 }
@@ -33,7 +33,7 @@ a,.b-link,.bt.b-link {
   color: $link-color-base;
   &:hover {
     color: $link-hover-color-base;
-    text-decoration: underline;
+    text-decoration: none;
   }
   &:focus {
     outline: none;

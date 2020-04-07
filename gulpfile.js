@@ -2,7 +2,7 @@
 const
   date = '2020/02',
   project = 'start',
-  hostUrl = 'sergeypodolsky.ru/public_html/work/' + date + '/' + project,
+  hostUrl = 'sergeypodolsky.ru/public_html/work/' + date + '/' + project, // './'
   laravel = false, // laravel: true, false
   { src, dest, watch, series, parallel } = require('gulp'),
   plumber = require('gulp-plumber'),
@@ -281,7 +281,7 @@ function http() {
   });
 
   return src('www/**', { buffer: false })
-    .pipe(conn.dest(hostUrl)); // to the root './'
+    .pipe(conn.dest(hostUrl));
 }
 
 /* TASKS

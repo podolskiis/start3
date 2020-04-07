@@ -4,10 +4,9 @@
 @import 'mixin/btn-icon';
 @import 'mixin/btn-group';
 
-button, .bt {
+button {
 	[class*="icon-"], [class*="fa-"] {
 		padding: 1px; // fixed: Safari
-		display: block;
 	}
 }
 

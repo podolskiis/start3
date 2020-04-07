@@ -34,6 +34,11 @@
 }
 
 // block
+.b-sticky {
+  position: sticky;
+  align-self: flex-start !important;
+  top: 15px;
+}
 .b-logo {
   margin: 0;
   font-size: $fz-base;
