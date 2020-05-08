@@ -2,6 +2,7 @@
   &,
   .form-field {
     @include field-input;
+    order: 1;
     &::placeholder {
       @include tsn-all;
       color: $placeholder-color;
@@ -14,20 +15,26 @@
       }
     }
     & ~ [class*="__icon"] {
+      display: flex;
+      align-items: center;
       color: $placeholder-color;
       font-size: $input-size-icon;
-      &.bt:hover {
+      .bt:hover {
         color: $input-font-color;
+      }
+      &[class*="order-1"] {
+        .bt {
+          margin-left: $input-padding-x;
+        }
+      }
+      &[class*="order-0"] {
+        .bt {
+          margin-right: $input-padding-x;
+        }
       }
     }
     &.valid ~ [class*="__icon"] {
       color: $input-font-color;
-    }
-    &[class*="order"] ~ [class*="__icon"] {
-      margin-right: $input-padding-x;
-    }
-    &:not([class*="order"]) ~ [class*="__icon"] {
-      margin-left: $input-padding-x;
     }
   }
 }

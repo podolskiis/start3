@@ -34,21 +34,22 @@ textarea.form-field {
   display: inline-flex;
   align-items: center;
   flex-wrap: nowrap;
-  input {
+  .form-field {
     outline: none !important;
     -webkit-appearance: none !important;
     box-shadow: none !important;
     background-color: transparent !important;
     border: none !important;
+    padding-top: 0 !important;
     padding-left: 0 !important;
-    padding-right: 0 !important;
+    padding-bottom: 0 !important;
     max-width: 100%;
     width: 100%;
   }
   &__icon {
     flex-shrink: 1 !important;
     * {
-      display: block;
+      display: flex;
     }
   }
 }

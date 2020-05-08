@@ -3,11 +3,7 @@
 //   hyphens: auto;
 // }
 
-@include title-size(unit, (36,30,24,18,14,12));
-
-h1,.h1,h2,.h2,h3,.h3,h4,.h4,h5,.h5,h6,.h6 {
-  margin: ems($gutter-item-base) 0 ems($gutter-item-base / 2);
-}
+// @include title-size(unit, (36,30,24,18,14,12));
 
 h1,.h1,h2,.h2,h3,.h3,h4,.h4,
 h5,.h5,h6,.h6,b,strong,th,dt {
@@ -16,7 +12,7 @@ h5,.h5,h6,.h6,b,strong,th,dt {
 
 p,.p,pre,.pre,ul,.ul,ol,.ol,dl,.dl {
   margin-top: 0;
-  margin-bottom: ems($gutter-item-base);
+  margin-bottom: $gutter-item-base;
   &:last-child {
     margin-bottom: 0;
   }
@@ -24,7 +20,7 @@ p,.p,pre,.pre,ul,.ul,ol,.ol,dl,.dl {
 
 .hr {
   border: none;
-  margin: ems($gutter-item-base) 0;
+  margin: $gutter-item-base 0;
 }
 
 a,.b-link,.bt.b-link {

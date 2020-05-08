@@ -119,7 +119,7 @@
             $(this).parent().removeClass('focus');
           });
         });
-        $(this).find('input').on('change', function () {
+        $(this).find('.form-field').on('change keyup', function () {
           if ($(this).val() != '') {
             $(this).add($(this).parent()).addClass('valid');
           } else {
@@ -128,14 +128,17 @@
         }).trigger('change');
         $(this).find('[data-input="focus"]').on('click', function (e) {
           e.preventDefault();
-          $(this).closest('.form-field-icon').find('input').focus();
+          $(this).closest('.form-field-icon').find('.form-field').focus();
         });
-        $(this).find('[type="password"]').next().on('click', function () {
+        $(this).find('.show-password').on('click', function () {
           if ($(this).is('.active')) {
-            $(this).removeClass('active').prev().removeClass('active').removeAttr('type').attr('type', 'password');
+            $(this).removeClass('active').closest('.form-field-icon').find('.form-field').removeClass('active').removeAttr('type').attr('type', 'password');
           } else {
-            $(this).addClass('active password').prev().addClass('active password').removeAttr('type').attr('type', 'text');
+            $(this).addClass('active').closest('.form-field-icon').find('.form-field').addClass('active').removeAttr('type').attr('type', 'text');
           }
+        });
+        $(this).find('.bt.clean-field').on('click', function () {
+          $(this).closest('.form-field-icon').find('.form-field').val('').trigger('change');
         });
       });
     },
@@ -158,7 +161,7 @@
 
   $(document).ready(function () {
     window.fn.Launch();
-    $('[disabled]').on('click', function (e) { e.preventDefault() });
+    $('[disabled],.disabled').on('click', function (e) { e.preventDefault() });
   });
 
 })(jQuery);

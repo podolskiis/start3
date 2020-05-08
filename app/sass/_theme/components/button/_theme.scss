@@ -8,7 +8,11 @@
   }
   font-family: $ff-base;
   line-height: $btn-line-height-base;
-  @include btn-size(40,16);
+  @include btn-size(40, 16);
+}
+&.disabled,
+&[disabled] {
+  cursor: default !important;
 }
 
 // THEME
@@ -17,11 +21,15 @@
   background: $link-color-base;
   color: #fff;
   font-size: inherit;
-  &:hover, &.hover {
-    background: $link-hover-color-base;
-  }
-  &:active, &.active {
-    background: $link-active-color-base;
+  &:not([disabled]) {
+    &:hover,
+    &.hover {
+      background: $link-hover-color-base;
+    }
+    &:active,
+    &.active {
+      background: $link-active-color-base;
+    }
   }
 }
 
@@ -29,36 +37,40 @@
   @extend #{$root}--base;
   border-color: $link-color-base;
   color: $link-color-base;
-  &:hover, &.hover {
-    background: $link-color-base;
-    color: #fff;
-  }
-  &:active, &.active {
-    background: $link-active-color-base;
-    border-color: $link-active-color-base;
-    color: #fff;
+  &:not([disabled]) {
+    &:hover,
+    &.hover {
+      background: $link-color-base;
+      color: #fff;
+    }
+    &:active,
+    &.active {
+      background: $link-active-color-base;
+      border-color: $link-active-color-base;
+      color: #fff;
+    }
   }
 }
 
 &--tm-link-1 {
   @extend #{$root}--base;
   color: $link-color-base;
-  &:hover, &.hover {
-    color: $link-hover-color-base;
+  &:not([disabled]) {
+    &:hover,
+    &.hover {
+      color: $link-hover-color-base;
+    }
+    &:active,
+    &.active {
+      color: $link-active-color-base;
+    }
   }
-  &:active, &.active {
-    color: $link-active-color-base;
-  }
-}
-
-&[disabled] {
-  cursor: default;
 }
 
 // SIZE
 &--lg {
   @include btn-resize(1.25);
-  @media($max-md) {
+  @media ($max-md) {
     &:not(#{$root}--md-not-resize) {
       @include btn-resize(1);
     }
