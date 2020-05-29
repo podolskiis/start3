@@ -143,7 +143,7 @@
       });
     },
 
-    // Checked B-check
+    // Checked B-check3456
     checkedBcheck: function () {
       $b = $('.b-check');
       function bChange() {

@@ -173,13 +173,11 @@ function template() {
 }
 
 // Watch for changes
-function watcher(done) {
+function watcher() {
   watch(paths.style.src + '/**/*', parallel(style));
-  !laravel && watch(paths.template.src + '/**/*', parallel(template));
   watch(paths.svg.src, series(svg, parallel(reload)));
   watch(paths.script + '/**/*', reload);
-  watch(paths.html, reload);
-  done();
+  laravel ? watch(paths.html, reload) : watch(paths.template.src + '/**/*', parallel(template));
 }
 
 
@@ -234,7 +232,7 @@ function html() {
       unformatted: ['code', 'pre', 'em', 'strong', 'i', 'b', 'br']
     }))
     .pipe(dest('www'));
-};
+}
 
 // Import other files
 function files(done) {
