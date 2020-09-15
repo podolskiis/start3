@@ -32,6 +32,14 @@
     padding: 15px;
   }
 }
+.form-group {
+  margin-bottom: 15px;
+}
+.form-group--tm-1 {
+  &:last-child {
+    margin-bottom: 0;
+  }
+}
 
 // block
 .b-sticky {

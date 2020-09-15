@@ -4,12 +4,14 @@ $sm: 576px;
 $md: 768px;
 $lg: 992px;
 $xl: 1200px;
+$xxl: 1400px;
 
 // Media Min
 $min-sm: 'min-width: #{$sm}';
 $min-md: 'min-width: #{$md}';
 $min-lg: 'min-width: #{$lg}';
 $min-xl: 'min-width: #{$xl}';
+$min-xxl: 'min-width: #{$xxl}';
 
 // Media Max
 $maxnum: .02px;
@@ -17,6 +19,7 @@ $max-sm: 'max-width: #{$sm - $maxnum}';
 $max-md: 'max-width: #{$md - $maxnum}';
 $max-lg: 'max-width: #{$lg - $maxnum}';
 $max-xl: 'max-width: #{$xl - $maxnum}';
+$max-xxl: 'max-width: #{$xxl - $maxnum}';
 
 // Breakpoints base
 $max-base: $max-lg;
@@ -32,7 +35,8 @@ $grid-breakpoints: (
   sm : $sm,
   md : $md,
   lg : $lg,
-  xl : $xl
+  xl : $xl,
+  xxl : $xxl
 );
 
 // Grid containers
@@ -40,5 +44,6 @@ $container-max-widths: (
   sm : 540px,
   md : 720px,
   lg : 960px,
-  xl : 1140px
+  xl : 1140px,
+  xxl : 1320px
 );
