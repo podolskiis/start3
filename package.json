@@ -21,7 +21,7 @@
     "gulp-rev-append": "^0.1.8",
     "gulp-rsync": "0.0.9",
     "gulp-sass": "^4.1.0",
-    "gulp-sourcemaps": "^2.6.5",
+    "gulp-sourcemaps": "^3.0.0",
     "gulp-svg-sprite": "^1.5.0",
     "gulp-svgmin": "^3.0.0",
     "gulp-util": "^3.0.8",
