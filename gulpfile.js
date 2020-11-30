@@ -181,19 +181,19 @@ function watcher() {
 }
 
 
-const dev_hpml = series(
+const devHtml = series(
   vendor, style, template, svg,
   parallel(watcher, serve)
 )
-const dev_php = series(
+const devPhp = series(
   vendor, style, svg,
   parallel(watcher, serve)
 )
 
 if (!laravel) {
-  exports.default = dev_hpml;
+  exports.default = devHtml;
 } else {
-  exports.default = dev_php;
+  exports.default = devPhp;
 }
 
 
@@ -270,7 +270,7 @@ function sync() {
 }
 
 function http() {
-  var conn = ftp.create({
+  const conn = ftp.create({
     host: '92.53.96.109',
     user: 'podolskiis',
     password: '888888',

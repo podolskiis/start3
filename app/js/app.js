@@ -1,7 +1,7 @@
+'use strict';
 (function ($) {
-  'use strict';
 
-  var $b;
+  let $b;
 
   window.fn = {
 
@@ -16,14 +16,14 @@
     // Owl Carousel
     owlCarousel: function () {
       $b = $('[data-carousel="owl"]');
-      var defaulOptions = {
+      const defaulOptions = {
         navText: [
           '<i class="fas fa-angle-left"></i>',
           '<i class="fas fa-angle-right"></i>'
         ],
       };
       $b.each(function () {
-        var a = $(this),
+        const a = $(this),
           items = a.data('items') || [1, 1, 1],
           margin = a.data('margin'),
           loop = a.data('loop'),
@@ -35,7 +35,7 @@
           rtl = a.data('rtl'),
           autoheight = a.data('autoheight');
 
-        var options = {
+        const options = {
           nav: nav || false,
           loop: loop || false,
           dots: dots || false,
@@ -159,7 +159,7 @@
     },
   };
 
-  $(document).ready(function () {
+  $(function () {
     window.fn.Launch();
     $('[disabled],.disabled').on('click', function (e) { e.preventDefault() });
   });
