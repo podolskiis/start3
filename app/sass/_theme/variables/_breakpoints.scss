@@ -1,3 +1,5 @@
+$grid-columns: 12;
+
 // Breakpoints Window
 $xs: 320px;
 $sm: 576px;
@@ -7,43 +9,42 @@ $xl: 1200px;
 $xxl: 1400px;
 
 // Media Min
-$min-sm: 'min-width: #{$sm}';
-$min-md: 'min-width: #{$md}';
-$min-lg: 'min-width: #{$lg}';
-$min-xl: 'min-width: #{$xl}';
-$min-xxl: 'min-width: #{$xxl}';
+$min-sm: "min-width: #{$sm}";
+$min-md: "min-width: #{$md}";
+$min-lg: "min-width: #{$lg}";
+$min-xl: "min-width: #{$xl}";
+$min-xxl: "min-width: #{$xxl}";
 
 // Media Max
-$maxnum: .02px;
-$max-sm: 'max-width: #{$sm - $maxnum}';
-$max-md: 'max-width: #{$md - $maxnum}';
-$max-lg: 'max-width: #{$lg - $maxnum}';
-$max-xl: 'max-width: #{$xl - $maxnum}';
-$max-xxl: 'max-width: #{$xxl - $maxnum}';
+$maxnum: 0.02px;
+$max-sm: "max-width: #{$sm - $maxnum}";
+$max-md: "max-width: #{$md - $maxnum}";
+$max-lg: "max-width: #{$lg - $maxnum}";
+$max-xl: "max-width: #{$xl - $maxnum}";
+$max-xxl: "max-width: #{$xxl - $maxnum}";
 
 // Breakpoints base
 $max-base: $max-lg;
 $min-base: $min-lg;
-
 
 // BOOTSTRAP OVERRIDE
 // ******************
 
 // Grid breakpoints
 $grid-breakpoints: (
-  xs : 0,
-  sm : $sm,
-  md : $md,
-  lg : $lg,
-  xl : $xl,
-  xxl : $xxl
+  xs: 0,
+  sm: $sm,
+  md: $md,
+  lg: $lg,
+  xl: $xl,
+  xxl: $xxl,
 );
 
 // Grid containers
 $container-max-widths: (
-  sm : 540px,
-  md : 720px,
-  lg : 960px,
-  xl : 1140px,
-  xxl : 1320px
+  sm: 540px,
+  md: 720px,
+  lg: 960px,
+  xl: 1140px,
+  xxl: 1320px,
 );
