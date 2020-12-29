@@ -31,7 +31,7 @@
   },
   "dependencies": {
     "@fancyapps/fancybox": "^3.5.7",
-    "bootstrap": "^5.0.0-alpha1",
+    "bootstrap": "^5.0.0-beta1",
     "bootstrap-select": "^1.13.18",
     "owl.carousel": "^2.3.4"
   }
