@@ -23,9 +23,10 @@ html(lang="ru")
 
     +favicon
     +icomoon
-    link(href="css/vendor.min.css?rev=@@hash" rel="stylesheet")
-    link(href="css/app.min.css?rev=@@hash" rel="stylesheet")
-    link(href="css/custom.css" rel="stylesheet")
+    link(rel="stylesheet" href=`${cdnjs}/font-awesome/5.15.2/css/all.min.css`)
+    link(rel="stylesheet" href="css/vendor.min.css?rev=@@hash")
+    link(rel="stylesheet" href="css/app.min.css?rev=@@hash")
+    link(rel="stylesheet" href="css/custom.css")
 
   body.page(class=bodyClasses)
     if before
