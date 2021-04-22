@@ -2,7 +2,7 @@
   "name": "project",
   "version": "1.0.0",
   "devDependencies": {
-    "browser-sync": "^2.26.13",
+    "browser-sync": "^2.26.14",
     "del": "^6.0.0",
     "gulp": "^4.0.2",
     "gulp-autoprefixer": "^7.0.1",
@@ -25,13 +25,13 @@
     "gulp-svg-sprite": "^1.5.0",
     "gulp-svgmin": "^3.0.0",
     "gulp-util": "^3.0.8",
-    "imagemin-pngquant": "^9.0.1",
-    "lodash": "^4.17.20",
+    "imagemin-pngquant": "^9.0.2",
+    "lodash": "^4.17.21",
     "vinyl-ftp": "^0.6.1"
   },
   "dependencies": {
     "@fancyapps/fancybox": "^3.5.7",
-    "bootstrap": "^5.0.0-beta1",
+    "bootstrap": "^5.0.0-beta3",
     "bootstrap-select": "^1.13.18",
     "owl.carousel": "^2.3.4"
   }
