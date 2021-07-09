@@ -6,19 +6,12 @@
 // Fonts
 @import 'base/fonts';
 
-// Bootstrap
-@import '../../../node_modules/bootstrap/scss/bootstrap';
+// Vendors
+@import './node_modules/bootstrap/scss/bootstrap';
+@import './node_modules/bootstrap-select/sass/bootstrap-select';
 
-// Theme
-@import 'base/base';
-@import 'base/typography';
-@import 'utils/import';
-
-// @import 'components/icon/import';
-@import 'components/button/import';
-@import 'components/form/import';
-@import 'components/check/import';
-// @import 'components/fancybox/import';
-// @import 'components/owl-carousel/import';
-
+// Theme (base)
+@import 'base/import';
+@import 'helpers/import';
+@import 'components/import';
 @import 'theme';

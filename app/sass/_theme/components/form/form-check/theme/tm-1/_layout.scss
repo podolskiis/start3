@@ -1,7 +1,8 @@
-@import 'variables';
-$check: 'check'; // check | square
+@import "variables";
+$check: "check"; // check | square
+
 @mixin check($check) {
-  @if $check == 'square' {
+  @if $check == "square" {
     top: $ch-gutter-checked;
     left: $ch-gutter-checked;
     right: $ch-gutter-checked;
@@ -9,14 +10,14 @@ $check: 'check'; // check | square
     background-color: $ch-border-color;
     border-radius: $ch-border-radius - 1;
   }
-  @if $check == 'check' {
+  @if $check == "check" {
     border-bottom: 3px solid $ch-border-focus-color;
     border-left: 3px solid $ch-border-focus-color;
     top: 3px;
     left: 0;
     width: 100%;
     height: 50%;
-    transform: rotate(-50deg) scale(.6);
+    transform: rotate(-50deg) scale(0.6);
   }
 }
 
@@ -35,7 +36,7 @@ $check: 'check'; // check | square
     width: $ch-size;
     height: $ch-size;
   }
-  [type="checkbox"] + #{$root}__checked{
+  [type="checkbox"] + #{$root}__checked {
     &::before {
       @include check($check);
     }
@@ -45,7 +46,7 @@ $check: 'check'; // check | square
     width: $ch-size + 2;
     height: $ch-size + 2;
     &::before {
-      @include check('square');
+      @include check("square");
       $ch-gutter-checked: $ch-gutter-checked + 1;
       border-radius: 50%;
       top: $ch-gutter-checked;
@@ -59,22 +60,24 @@ $check: 'check'; // check | square
   #{$root}__input {
     // hover
     &:hover + #{$root}__checked {
-      &:before {}
+      &:before {
+      }
     }
     // focus
     &:focus + #{$root}__checked {
       background-color: $ch-bg;
       border-color: $ch-border-focus-color;
-      &:before {}
+      &:before {
+      }
     }
     // checked
     &[type="checkbox"]:checked + #{$root}__checked {
-      @if $check == 'square' {
+      @if $check == "square" {
         &:before {
           background-color: $ch-color-checked;
         }
       }
-      @if $check == 'check' {
+      @if $check == "check" {
         background-color: $ch-color-checked;
         border-color: $ch-color-checked;
         color: #ffffff;
@@ -90,6 +93,7 @@ $check: 'check'; // check | square
     }
   }
   a {
-    &:hover {}
+    &:hover {
+    }
   }
 }

@@ -41,3 +41,28 @@
 textarea.form-field--tm-1 {
   min-height: 100px;
 }
+
+.b-select--tm-1 {
+  button {
+    @extend .form-field;
+    @extend .form-field--tm-1;
+    .filter-option {
+      display: flex;
+      align-items: center;
+    }
+    &.dropdown-toggle {
+      &::after {
+        margin-left: 0;
+        vertical-align: baseline;
+      }
+      &:not(:focus):hover {
+        background-color: $input-bg-color;
+        border-color: $input-border-color;
+      }
+      &:focus {
+        outline: none !important;
+        box-shadow: none;
+      }
+    }
+  }
+}

@@ -1,7 +1,7 @@
-mixin bs-modal-close
-  span.bt(data-dismiss="modal")&attributes(attributes)
+mixin modal-bs-close
+  span.bt(data-bs-dismiss="modal")&attributes(attributes)
     <i class="fas fa-times"></i>
-mixin bs-modal
+mixin modal-bs
   .modal.fade(tabindex="-1" role="dialog")&attributes(attributes)
     block
 mixin b-logo(img,ht)
@@ -14,13 +14,12 @@ mixin b-check(mod)
     span.b-check__row
       span.b-check__col
         span.b-check__field
-          input(required).b-check__input&attributes(attributes)
+          input(type="checkbox" required).b-check__input&attributes(attributes)
           span.b-check__checked
       span.b-check__col
         span.b-check__val
           block
 mixin b-select
   select&attributes(attributes)
-    option(value="")
     - for (var x = 1; x <= 5; x++)
       option(value=x)!=`Lorem option #${x}`

@@ -5,6 +5,7 @@
 @import 'mixin/btn-group';
 
 button {
+  background: none;
 	[class*="icon-"], [class*="fa-"] {
 		padding: 1px; // fixed: Safari
 	}

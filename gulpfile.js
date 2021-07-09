@@ -6,7 +6,6 @@ const
   laravel = false, // laravel: true, false
   { src, dest, watch, series, parallel } = require('gulp'),
   plumber = require('gulp-plumber'),
-  sourcemaps = require('gulp-sourcemaps'),
   sass = require('gulp-sass'),
   autoprefixer = require('gulp-autoprefixer'),
   csso = require('gulp-csso'),
@@ -35,45 +34,40 @@ const
     js: [
       'node_modules/bootstrap/dist/js/bootstrap.bundle.min.js',
       'node_modules/bootstrap-select/dist/js/bootstrap-select.min.js',
-      'node_modules/@fancyapps/fancybox/dist/jquery.fancybox.min.js',
-      'node_modules/owl.carousel/dist/owl.carousel.min.js',
     ],
     css: [
-      'node_modules/bootstrap-select/dist/css/bootstrap-select.min.css',
-      'node_modules/@fancyapps/fancybox/dist/jquery.fancybox.min.css',
-      'node_modules/owl.carousel/dist/assets/owl.carousel.min.css',
     ],
-    html: laravel ? 'resources/views/**/*' : 'app/*.html',
-    script: laravel ? 'public/app/js' : 'app/js',
+    html: laravel ? 'resources/views/**' : 'app/*.html',
+    script: laravel ? 'public/app/js/' : 'app/js/',
     style: {
-      src: laravel ? 'resources/sass/_theme' : 'app/sass/_theme',
-      dest: laravel ? 'public/app/css' : 'app/css',
+      src: laravel ? 'resources/sass/_theme/' : 'app/sass/_theme/',
+      dest: laravel ? 'public/app/css/' : 'app/css/',
     },
     svg: {
-      src: laravel ? 'public/app/images/icons/svg/**/*' : 'app/images/icons/svg/**/*',
-      dest: laravel ? 'public/app/images/icons' : 'app/images/icons',
+      src: laravel ? 'public/app/images/icons/svg/**' : 'app/images/icons/svg/**/*.svg',
+      dest: laravel ? 'public/app/images/icons/' : 'app/images/icons/',
     },
     template: {
-      src: 'app/pug',
-      dest: 'app',
+      src: 'app/pug/',
+      dest: 'app/',
       json: 'app/pug/_base/_data.json',
     },
     import: {
       fonts: {
         src: 'app/fonts/**',
-        dest: 'www/fonts',
+        dest: 'www/fonts/',
       },
       css: {
         src: 'app/css/**',
-        dest: 'www/css',
+        dest: 'www/css/',
       },
       js: {
         src: 'app/js/**',
-        dest: 'www/js',
+        dest: 'www/js/',
       },
       video: {
         src: 'app/video/**',
-        dest: 'www/video',
+        dest: 'www/video/',
       }
     }
   };
@@ -91,7 +85,7 @@ function reload(done) {
 function serve(done) {
   server.init({
     proxy: laravel && project + '.loc',
-    server: !laravel && 'app',
+    server: !laravel && 'app/',
     notify: false,
   });
   done();
@@ -102,15 +96,15 @@ function vendor(done) {
   lodash(paths).forEach(function (dist, type) {
     if (type == 'js' && dist.length) {
       return src(dist)
-        .pipe(sourcemaps.init())
         .pipe(concat('vendor.min.js'))
-        .pipe(sourcemaps.write('.'))
         .pipe(dest(paths.script))
     }
     if (type == 'css' && dist.length) {
       return src(dist)
         .pipe(concat('vendor.min.css'))
         .pipe(dest(paths.style.dest))
+    } else {
+      del([paths.style.dest + 'vendor.min.css']);
     }
   })
   done();
@@ -118,7 +112,7 @@ function vendor(done) {
 
 // Sass
 function style() {
-  return src(paths.style.src + '/*.+(scss|sass)')
+  return src(paths.style.src + '*.+(scss|sass)')
     .pipe(plumber())
     .pipe(sass())
     .pipe(autoprefixer({ overrideBrowserslist: ['last 8 versions'] }))
@@ -160,24 +154,24 @@ function svg() {
 
 // Pug
 function template() {
-  return src(paths.template.src + '/*.pug')
+  return src(paths.template.src + '*.pug')
     .pipe(plumber())
     .pipe(pug({
       pretty: '\t',
       locals: JSON.parse(fs.readFileSync(paths.template.json, 'utf-8'))
     }))
     .pipe(plumber.stop())
-    .pipe(cached('pug'))
+    .pipe(cached('pug/'))
     .pipe(dest(paths.template.dest))
     .pipe(server.stream())
 }
 
 // Watch for changes
 function watcher() {
-  watch(paths.style.src + '/**/*', parallel(style));
+  watch(paths.style.src + '**', parallel(style));
   watch(paths.svg.src, series(svg, parallel(reload)));
-  watch(paths.script + '/**/*', reload);
-  laravel ? watch(paths.html, reload) : watch(paths.template.src + '/**/*', parallel(template));
+  watch(paths.script + '**', reload);
+  laravel ? watch(paths.html, reload) : watch(paths.template.src + '**', parallel(template));
 }
 
 
@@ -202,7 +196,7 @@ if (!laravel) {
 
 // Clean (dir)
 function clean() {
-  return del(['www']);
+  return del(['www/']);
 }
 
 // Import (images)
@@ -220,7 +214,7 @@ function images() {
         ]
       })
     ]))
-    .pipe(dest('www/images'));
+    .pipe(dest('www/images/'));
 }
 
 // Import (html)
@@ -231,7 +225,7 @@ function html() {
     .pipe(prettyHtml({
       unformatted: ['code', 'pre', 'em', 'strong', 'i', 'b', 'br']
     }))
-    .pipe(dest('www'));
+    .pipe(dest('www/'));
 }
 
 // Import other files
@@ -260,7 +254,7 @@ exports.bld = build;
 function sync() {
   return src('www/**')
     .pipe(rsync({
-      root: 'www',
+      root: 'www/',
       hostname: 'podolskiis@vh54.timeweb.ru',
       destination: hostUrl,
       archive: true,

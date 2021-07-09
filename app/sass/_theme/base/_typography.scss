@@ -12,7 +12,7 @@ h5,.h5,h6,.h6,b,strong,th,dt {
 
 p,.p,pre,.pre,ul,.ul,ol,.ol,dl,.dl {
   margin-top: 0;
-  margin-bottom: $gutter-item-base;
+  margin-bottom: $paragraph-margin-bottom;
   &:last-child {
     margin-bottom: 0;
   }
@@ -20,7 +20,7 @@ p,.p,pre,.pre,ul,.ul,ol,.ol,dl,.dl {
 
 .hr {
   border: none;
-  margin: $gutter-item-base 0;
+  margin: $paragraph-margin-bottom 0;
 }
 
 a,.b-link,.bt.b-link {

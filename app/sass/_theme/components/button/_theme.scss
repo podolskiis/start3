@@ -13,6 +13,8 @@
 &.disabled,
 &[disabled] {
   cursor: default !important;
+  // background-color: $placeholder-color !important;
+  opacity: 0.5;
 }
 
 // THEME
@@ -21,14 +23,13 @@
   background: $link-color-base;
   color: #fff;
   font-size: inherit;
-  &:not([disabled]) {
+  &:not([disabled]):not(.disabled) {
     &:hover,
-    &.hover {
-      background: $link-hover-color-base;
-    }
+    &.hover,
     &:active,
     &.active {
-      background: $link-active-color-base;
+      background: $link-hover-color-base;
+      color: #fff;
     }
   }
 }
@@ -37,7 +38,7 @@
   @extend #{$root}--base;
   border-color: $link-color-base;
   color: $link-color-base;
-  &:not([disabled]) {
+  &:not([disabled]):not(.disabled) {
     &:hover,
     &.hover {
       background: $link-color-base;
@@ -55,7 +56,7 @@
 &--tm-link-1 {
   @extend #{$root}--base;
   color: $link-color-base;
-  &:not([disabled]) {
+  &:not([disabled]):not(.disabled) {
     &:hover,
     &.hover {
       color: $link-hover-color-base;
