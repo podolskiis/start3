@@ -1,0 +1,54 @@
+// * {
+//   word-break: break-word;
+//   hyphens: auto;
+// }
+
+// title-size
+@if $title-size-media {
+  @each $key, $size in $title-size-media {
+    @include title-size-media($key, em, $size);
+  }
+}
+
+@include tag-plus-class((h1,h2,h3,h4,h5,h6)) {
+  font-weight: 700;
+}
+b,strong,th,dt {
+  font-weight: 700;
+}
+
+@include tag-plus-class((p,pre,ul,ol,dl)) {
+  margin-top: 0;
+  margin-bottom: $paragraph-margin-bottom;
+  &:last-child {
+    margin-bottom: 0;
+  }
+}
+
+.hr {
+  border: none;
+  margin: $paragraph-margin-bottom 0;
+}
+
+a,.b-link,.bt.b-link {
+  cursor: pointer;
+  text-decoration: none;
+  color: $link-color-base;
+  &:hover {
+    color: $link-color-base-hover;
+    text-decoration: none;
+  }
+  &:focus {
+    outline: none;
+  }
+}
+
+a,input,textarea,button,.bt,.b-link {
+  @include ts;
+}
+
+[class^="svg-"],[class*=" svg-"] {
+  rect, path {
+    @include ts-svg(stroke);
+  }
+}

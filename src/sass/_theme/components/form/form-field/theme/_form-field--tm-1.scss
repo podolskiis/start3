@@ -1,0 +1,68 @@
+.form-field--tm-1 {
+  &,
+  .form-field {
+    @include field-input;
+    order: 1;
+    &::placeholder {
+      @include ts-all;
+      color: $placeholder-color;
+      font-weight: $input-font-weight;
+    }
+    &:focus,
+    &.focus {
+      &::placeholder {
+        color: $placeholder-color-focus;
+      }
+    }
+    & ~ [class*="__icon"] {
+      display: flex;
+      align-items: center;
+      color: $placeholder-color;
+      font-size: $input-size-icon;
+      .bt:hover {
+        color: $input-font-color;
+      }
+      &[class*="order-1"] {
+        .bt {
+          margin-left: $input-padding-x;
+        }
+      }
+      &[class*="order-0"] {
+        .bt {
+          margin-right: $input-padding-x;
+        }
+      }
+    }
+    &.valid ~ [class*="__icon"] {
+      color: $input-font-color;
+    }
+  }
+}
+textarea.form-field--tm-1 {
+  min-height: 100px;
+}
+
+.b-select--tm-1 {
+  button {
+    @extend .form-field;
+    @extend .form-field--tm-1;
+    .filter-option {
+      display: flex;
+      align-items: center;
+    }
+    &.dropdown-toggle {
+      &::after {
+        margin-left: 0;
+        vertical-align: baseline;
+      }
+      &:not(:focus):hover {
+        background-color: $input-bg-color;
+        border-color: $input-border-color;
+      }
+      &:focus {
+        outline: none !important;
+        box-shadow: none;
+      }
+    }
+  }
+}

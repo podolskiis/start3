@@ -1,0 +1,33 @@
+@mixin icon-base($ff, $fw) {
+	font-family: $ff !important;
+	font-weight: $fw;
+	font-style: normal;
+	font-variant: normal;
+	text-transform: none;
+	line-height: 1;
+	speak: never;
+	// display: inline-block;
+
+	/* Better Font Rendering =========== */
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+
+  // & * {
+	// 	speak: never;
+	// 	font-style: normal;
+	// 	font-variant: normal;
+	// 	text-transform: none;
+  // }
+}
+@mixin ic() {
+	@include icon-base('icomoon', 400);
+}
+
+@mixin fa($fa: false) {
+	@if $fa == 'fab' {
+		@include icon-base('Font Awesome 5 Brands', 400);
+	}
+	@else {
+		@include icon-base('Font Awesome 5 Free', 900);
+	}
+}

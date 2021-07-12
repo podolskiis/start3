@@ -1,0 +1,23 @@
+@mixin link-effect-line-center($z: 1px, $color: $link-color-base-hover, $tsn: .3) {
+  position: relative;
+  text-decoration: none;
+  @include tsn($tsn);
+  &::before {
+    background: $color;
+    height: $z;
+    content: "";
+    display: block;
+    position: absolute;
+    left: 50%;
+    right: 50%;
+    top: 1.2em;
+    @include tsnAll($tsn);
+  }
+  &:hover {
+    color: $color;
+    &::before {
+      left: 0;
+      right: 0;
+    }
+  }
+}

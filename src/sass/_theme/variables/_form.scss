@@ -1,0 +1,26 @@
+// DEFAULT FORM ELEMENTS
+$placeholder-color:        #aaaaaa;
+$placeholder-color-focus:  transparent;
+
+$input-bg-color:           #ffffff;
+$input-bg-color-focus:     #ffffff;
+
+$input-border-width:       1px;
+$input-border-color:       #dddddd;
+$input-border-color-focus: #aaaaaa;
+$input-border-radius:      $border-radius-base;
+
+$input-height:             rem(40px);
+$input-padding-y:          rem(8px);
+$input-padding-x:          rem(10px);
+
+$input-font-color:         $color-1;
+$input-font-size:          $fz-base;
+$input-font-family:        $ff-base;
+$input-font-weight:        400;
+
+$input-size-icon:          18px;
+
+$form-group-spacing:       $paragraph-margin-bottom;
+
+$input-bg-error-color:     red;

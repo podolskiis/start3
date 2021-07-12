@@ -1,0 +1,54 @@
+doctype html
+include _variables.pug
+include ../_mixins/_mix-include.pug
+
+html(lang="zxx")
+  head
+    meta(charset="utf-8")
+    meta(http-equiv="X-UA-Compatible" content="IE=edge")
+    meta(name="viewport" content="width=device-width, initial-scale=1")
+    meta(name="format-detection" content="telephone=no")
+    meta(name="format-detection" content="address=no")
+    
+    block title
+      title=pojectTitle
+    
+    meta(name="description" content="")
+    meta(name="keywords" content="")
+    meta(property='og:url' content="")
+    meta(property='og:type' content="")
+    meta(property='og:title' content="")
+    meta(property='og:description' content="")
+    meta(property='og:image' content="")
+
+    +favicon
+    +icomoon
+    link(rel="stylesheet" href=`${cdnjs}/font-awesome/5.15.3/css/all.min.css`)
+    link(rel="stylesheet" href="css/app.min.css?rev=@@hash")
+    link(rel="stylesheet" href="css/custom.css")
+
+  body.page(class=bodyClasses)
+    if before
+      include ../_section/_static/_before.pug
+    .page-wrap
+      if header
+        // HEADER: START 
+        include ../_section/_static/_header.pug
+        // HEADER: END 
+      if main
+        // MAIN: START 
+        main.section-main
+          block content
+        // MAIN: END 
+      if footer
+        // FOOTER: START 
+        include ../_section/_static/_footer.pug
+        // FOOTER: END 
+    if modals
+      // MODALS: START 
+      include ../_section/_static/_modals.pug
+      // MODALS: END 
+    script(src=`${cdnjs}/jquery/3.6.0/jquery.min.js`)
+    script(src="js/vendor.min.js?rev=@@hash")
+    block script
+    script(src="js/app.js?rev=@@hash")

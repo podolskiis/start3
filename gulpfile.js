@@ -7,6 +7,7 @@ const
   { src, dest, watch, series, parallel } = require('gulp'),
   plumber = require('gulp-plumber'),
   sass = require('gulp-sass'),
+  sassGlob = require('gulp-sass-glob'),
   autoprefixer = require('gulp-autoprefixer'),
   csso = require('gulp-csso'),
   gcmq = require('gulp-group-css-media-queries'),
@@ -30,6 +31,8 @@ const
   rev = require('gulp-rev-append'),
   formatHtml = require('gulp-format-html'),
   prettyHtml = require('gulp-pretty-html'),
+  pathApp = 'src/',
+  pathBld = 'www/',
   paths = {
     js: [
       'node_modules/bootstrap/dist/js/bootstrap.bundle.min.js',
@@ -37,36 +40,36 @@ const
     ],
     css: [
     ],
-    html: laravel ? 'resources/views/**' : 'app/*.html',
-    script: laravel ? 'public/app/js/' : 'app/js/',
+    html: laravel ? 'resources/views/**' : pathApp + '*.html',
+    script: laravel ? 'public/app/js/' : pathApp + 'js/',
     style: {
-      src: laravel ? 'resources/sass/_theme/' : 'app/sass/_theme/',
-      dest: laravel ? 'public/app/css/' : 'app/css/',
+      src: laravel ? 'resources/sass/_theme/' : pathApp + 'sass/_theme/',
+      dest: laravel ? 'public/app/css/' : pathApp + 'css/',
     },
     svg: {
-      src: laravel ? 'public/app/images/icons/svg/**' : 'app/images/icons/svg/**/*.svg',
-      dest: laravel ? 'public/app/images/icons/' : 'app/images/icons/',
+      src: laravel ? 'public/app/images/icons/svg/**' : pathApp + 'images/icons/svg/**/*.svg',
+      dest: laravel ? 'public/app/images/icons/' : pathApp + 'images/icons/',
     },
     template: {
-      src: 'app/pug/',
-      dest: 'app/',
-      json: 'app/pug/_base/_data.json',
+      src: pathApp + 'pug/',
+      dest: pathApp,
+      json: pathApp + 'pug/_base/_data.json',
     },
     import: {
       fonts: {
-        src: 'app/fonts/**',
+        src: pathApp + 'fonts/**',
         dest: 'www/fonts/',
       },
       css: {
-        src: 'app/css/**',
+        src: pathApp + 'css/**',
         dest: 'www/css/',
       },
       js: {
-        src: 'app/js/**',
+        src: pathApp + 'js/**',
         dest: 'www/js/',
       },
       video: {
-        src: 'app/video/**',
+        src: pathApp + 'video/**',
         dest: 'www/video/',
       }
     }
@@ -85,7 +88,7 @@ function reload(done) {
 function serve(done) {
   server.init({
     proxy: laravel && project + '.loc',
-    server: !laravel && 'app/',
+    server: !laravel && pathApp,
     notify: false,
   });
   done();
@@ -114,7 +117,10 @@ function vendor(done) {
 function style() {
   return src(paths.style.src + '*.+(scss|sass)')
     .pipe(plumber())
-    .pipe(sass())
+    .pipe(sassGlob())
+    .pipe(sass({
+      includePaths: ['node_modules/']
+    }))
     .pipe(autoprefixer({ overrideBrowserslist: ['last 8 versions'] }))
     .pipe(gcmq())
     .pipe(csso())
@@ -196,12 +202,12 @@ if (!laravel) {
 
 // Clean (dir)
 function clean() {
-  return del(['www/']);
+  return del([pathBld]);
 }
 
 // Import (images)
 function images() {
-  return src('app/images/**')
+  return src(pathApp + 'images/**')
     .pipe(imagemin([
       imagemin.gifsicle({ interlaced: true }),
       imagemin.mozjpeg({ quality: 75, progressive: true }),
@@ -214,18 +220,18 @@ function images() {
         ]
       })
     ]))
-    .pipe(dest('www/images/'));
+    .pipe(dest(pathBld + 'images/'));
 }
 
 // Import (html)
 function html() {
-  return src('app/*.html')
+  return src(pathApp + '*.html')
     .pipe(rev())
     .pipe(formatHtml())
     .pipe(prettyHtml({
       unformatted: ['code', 'pre', 'em', 'strong', 'i', 'b', 'br']
     }))
-    .pipe(dest('www/'));
+    .pipe(dest(pathBld));
 }
 
 // Import other files
@@ -252,9 +258,9 @@ exports.bld = build;
 ********************************************************/
 
 function sync() {
-  return src('www/**')
+  return src(pathBld + '**')
     .pipe(rsync({
-      root: 'www/',
+      root: pathBld,
       hostname: 'podolskiis@vh54.timeweb.ru',
       destination: hostUrl,
       archive: true,
@@ -272,7 +278,7 @@ function http() {
     log: gutil.log
   });
 
-  return src('www/**', { buffer: false })
+  return src(pathBld + '**', { buffer: false })
     .pipe(conn.dest(hostUrl));
 }
 

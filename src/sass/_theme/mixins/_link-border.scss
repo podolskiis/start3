@@ -1,0 +1,19 @@
+@mixin link-border($type: dotted, $color: $link-color-base, $hover: $link-color-base-hover) {
+  border-width: 0 0 1px;
+  display: inline;
+  text-decoration: none !important;
+  line-height: 0.9em;
+  color: $color;
+  border-color: $color;
+  @if $type == solid {
+    border-style: solid;
+  } @else if $type == dashed {
+    border-style: dashed;
+  } @else {
+    border-style: dotted;
+  }
+  &:hover {
+    color: $hover;
+    border-color: $hover;
+  }
+}

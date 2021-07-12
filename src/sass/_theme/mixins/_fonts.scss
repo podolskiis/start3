@@ -1,0 +1,58 @@
+// Variant: 1
+@function italic($st){
+  @return if(($st == italic), "i", "");
+}
+
+@mixin font($ff, $fw, $fs: normal) {
+
+  // $fs: if(($fs == italic or $fs == normal italic), normal italic, $fs);
+  $path: "#{$dir-fonts-base + to-lower-case(str-replace($ff, " ", ""))}/";
+  
+  @each $fn in $fw {
+    @each $st in $fs {
+      @font-face {
+        font-family: $ff;
+        src:  local("☺"),
+              url("#{$path + $fn + italic($st)}.woff") format("woff"),
+              url("#{$path + $fn + italic($st)}.woff2") format("woff2");
+        font-weight: $fn;
+        font-style: $st;
+      }
+    }
+  }
+}
+
+// Variant: 2
+// Doc: https://bl.ocks.org/jonathantneal/d0460e5c2d5d7f9bc5e6
+// Example: @include font-face(Samplinal, fonts/Samplinal, 500, normal, eot woff2 woff);
+@mixin font-face($name, $weight: null, $style: null, $exts: eot woff2 woff ttf svg) {
+	$src: null;
+  $fn: to-lower-case(str-replace($name, " ", ""));
+  $path: "#{$dir-fonts-base + $fn}/";
+
+	$extmods: (
+		eot: "?",
+		svg: "#" + str-replace($name, " ", "_")
+	);
+
+	$formats: (
+		otf: "opentype",
+		ttf: "truetype"
+	);
+
+	@each $ext in $exts {
+		$extmod: if(map-has-key($extmods, $ext), $ext + map-get($extmods, $ext), $ext);
+		$format: if(map-has-key($formats, $ext), map-get($formats, $ext), $ext);
+		$src: append($src, url(quote($path + $fn + "." + $extmod)) format(quote($format)), comma);
+	}
+
+	@font-face {
+		font-family: quote($name);
+		font-style: $style;
+		font-weight: $weight;
+		src: $src;
+    @if ($name == "icomoon") {
+      font-display: block;
+    }
+	}
+}

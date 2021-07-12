@@ -1,0 +1,25 @@
+// COLORS
+$color-1: #333333;
+$color-2: #cc0000;
+$color-3: #9acd32;
+$color-4: #0275d8;
+
+$color-accent: $color-2;
+
+$link-color-base: $color-4;
+$link-color-base-hover: darken($link-color-base, 7.5%);
+$link-color-base-active: darken($link-color-base, 15%);
+
+$bg-color: (
+  white: #ffffff,
+  black: #000000,
+  gray: #cccccc
+);
+$text-color: (
+  white: #ffffff,
+  black: #000000,
+  gray: #cccccc,
+  base: $color-1,
+  accent: $color-accent,
+  link: $link-color-base
+);

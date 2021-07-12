@@ -1,0 +1,19 @@
+// to (px)
+$offset-size-map: (16, 24, 30);
+
+// to (px)
+$title-size-media: (
+  false
+  // null:         (36,30,24,18,14,12),
+  // '#{$min-md}': (46,30,24,18,14,12),
+  // '#{$min-xl}': (56,30,24,18,14,12),
+);
+
+// to (px)
+$font-size-px: (14, 16, 18);
+
+// to (%)
+$font-size-percent: (80, 100, 120);
+
+// to (px)
+$wrap: ();

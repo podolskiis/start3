@@ -1,0 +1,22 @@
+$html-font-size: 16px;
+
+// Convert strip-units
+@function st-units($pxval, $base) {
+  @if not unitless($pxval) {
+    $pxval: strip-units($pxval);
+  }
+  @if not unitless($base) {
+    $base: strip-units($base);
+  }
+  @return ($pxval / $base);
+}
+
+// Convert pixels to em
+@function em($pxval, $base: $html-font-size) {
+  @return st-units($pxval, $base) * 1em;
+}
+
+// Convert pixels to rem
+@function rem($pxval, $base: $html-font-size) {
+  @return st-units($pxval, $base) * 1rem;
+}

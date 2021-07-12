@@ -1,0 +1,129 @@
+//- MENU
+mixin b-multiMenu(data, navСlass, dropdown)
+  //- example: +b-multiMenu(menu_obj, 'class-menu','submenu')
+  - var subСlass = navСlass + '-submenu'
+  mixin multiSubmenu(data, navСlass, count)
+    - count++
+    ul(class=subСlass+'__list')
+      each item in data
+        li(class=subСlass+'__item', class={active: activeMenu[count] === item.val})
+          a(href=item.url, class=subСlass+'__link')
+            span= item.val
+          if (item.submenu)
+            div(class=navСlass+'__submenu ' + subСlass)
+              +multiSubmenu(item.submenu, navСlass, count)
+  nav(class=navСlass)&attributes(attributes)
+    ul(class=navСlass+'__list')
+      - var count = 0
+      each item in data
+        - var itemClasses = [navСlass+'__item']
+        if (item.submenu && dropdown)
+          - itemClasses.push(itemClasses[0] + '--dropdown')
+        li( class=itemClasses, class={active: activeMenu[count] === item.val} )
+          a(href=item.url, class=navСlass+'__link')
+            span= item.val
+          if (item.submenu && dropdown)
+            div(class=navСlass + '__submenu ' + subСlass)
+              +multiSubmenu(item.submenu, navСlass, count)
+
+mixin b-menu-data(data)
+  //- example: +b-menu-data(menu_main)
+  ul&attributes(attributes)
+    each item, index in data
+      li
+        a(href=item.url)
+          span=item.val
+
+//- LIST
+mixin b-breadcrumb(items)
+  //- example: +b-breadcrumb(['Главная','Категория','Страница'])
+  - var mod = 'b-breadcrumb'
+  div(class=mod)&attributes(attributes)
+    ul(class=mod+'__list')
+      each item, index in items
+        li(class=mod+'__item')
+          if (index == items.length - 1)
+            span(class=mod+'__span')= item
+          else
+            a(href="#" class=mod+'__link')= item
+
+mixin b-list(itemTag, mod, items, active)
+  //- example: +b-list('a', 'mod', ['item1','item2','item3'], 2)
+  div(class= mod)&attributes(attributes)
+    ul(class= mod+'__list')
+      each val, index in items
+        li(class= mod+'__item' class={active: (index+1) === active})
+          if (itemTag == 'span')
+            span(class=mod+'__val')!= val
+          else if (itemTag == 'a')
+            a(href="#" class= mod+'__val')!= val
+          else
+            != val
+
+mixin b-social
+  //- example: +b-social
+  - var mod = 'b-social'
+  div(class= mod)&attributes(attributes)
+    ul(class= mod+'__list')
+      each val in ['fk','vk','tw','in']
+        li(class= mod+'__item')
+          a(href="#" class= mod+'__link')
+            i(class= mod+'__icon icon-'+val)
+              
+//- LINK
+mixin b-email(email,icon)
+  //- example: +b-email('email@google.com', 'icon-vk')
+  a(href="mailto:"+email, target="_blank", class!=attributes.class)
+    if icon
+      i(class=icon)
+      | 
+    | #{email}
+
+//- IMG
+mixin b-img-radius(src)
+  //- example: +b-img-radius('img/img.jpg')
+  span&attributes(attributes)
+    span
+      img(src=src alt="")
+
+mixin b-dev(mod,data)  
+  ol&attributes(attributes)
+    each item in data
+      li
+        if mod=='pages'
+          a(href=`${item}.html` target="_blank")=item
+        else if mod=='modals'
+          a(href="#" data-bs-toggle="modal" data-bs-target="#modal-"+item)="#modal-"+item
+
+mixin p
+  p&attributes(attributes)
+    | Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+    
+mixin date(input)
+  - var fnRp = function(val){ return val.toString().replace( /^([0-9])$/, '0$1' ) }
+  - var date = new Date(input)
+  - var dDt  = fnRp(date.getDate())
+  - var dMh  = fnRp(date.getMonth() + 1)
+  - var dYr  = date.getFullYear()
+  - var dHs  = date.getHours()
+  - var dMs  = fnRp(date.getMinutes())
+  time(datetime=JSON.parse(JSON.stringify(date)))&attributes(attributes)
+    != dDt + '.' + dMh + '.' + dYr + ' - ' + dHs + ':' + dMs
+
+mixin b-pagesUpdated
+  p: small&attributes(attributes)
+    | Обновлен: 
+    +date(Date())
+    
+mixin html(title)
+  |
+  <!--[start: #{title}]>
+  block
+  |
+  |
+  <![end: #{title}]-->
+
+mixin svg-sprite(id,z)
+  - var z = (z) ? z : '1em'
+  svg(class=`ic ic-${id}` width=z height=z)&attributes(attributes)
+    use(xlink:href=`images/icons/symbol/sprite.svg#${id}`)

@@ -1,0 +1,32 @@
+@mixin title-size($unit, $size) {
+  $i: 1;
+  @each $size in $size {
+    @if $unit == px {
+      h#{$i},
+      .h#{$i} {
+        font-size: $size + px;
+      }
+    } @else if $unit == em {
+      h#{$i},
+      .h#{$i} {
+        font-size: em($size);
+      }
+    } @else if $unit == rem {
+      h#{$i},
+      .h#{$i} {
+        font-size: rem($size);
+      }
+    }
+    $i: $i + 1;
+  }
+}
+
+@mixin title-size-media($media, $unit, $size) {
+  @if $media {
+    @media ($media) {
+      @include title-size($unit, $size);
+    }
+  } @else {
+    @include title-size($unit, $size);
+  }
+}

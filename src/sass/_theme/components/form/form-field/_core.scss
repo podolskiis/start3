@@ -1,0 +1,80 @@
+// base form-field
+.form-field {
+  &:-webkit-autofill,
+  &:-webkit-autofill:hover,
+  &:-webkit-autofill:focus,
+  &:-webkit-autofill:active {
+    -webkit-animation-name: autofill;
+    -webkit-animation-fill-mode: both;
+  }
+  outline: none;
+  margin: 0;
+  padding: 0;
+  -webkit-appearance: none;
+  background-clip: padding-box;
+  border: none;
+  border-radius: 0;
+  box-shadow: none;
+  vertical-align: middle;
+  max-width: 100%;
+  line-height: normal;
+  &:not(textarea):not(.form-field-icon) {
+    @include text-overflow;
+  }
+}
+textarea.form-field {
+  display: block;
+  height: auto;
+}
+
+// base form-field-icon
+.form-field-icon {
+  @include ts;
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  flex-wrap: nowrap;
+  .form-field {
+    outline: none !important;
+    -webkit-appearance: none !important;
+    box-shadow: none !important;
+    background-color: transparent !important;
+    border: none !important;
+    padding-top: 0 !important;
+    padding-left: 0 !important;
+    padding-bottom: 0 !important;
+    max-width: 100%;
+    width: 100%;
+  }
+  &__icon {
+    flex-shrink: 1 !important;
+    * {
+      display: flex;
+    }
+  }
+}
+
+// base form-label
+.form-label {
+  display: block;
+}
+
+// ios field fix
+html.is-ios {
+  textarea.form-field {
+    text-indent: -0.3em;
+    &::placeholder {
+      text-indent: 0;
+    }
+  }
+  @media screen and (max-width: 480px) {
+    .form-field,
+    .form-select {
+      font-size: 16px !important;
+    }
+  }
+}
+
+// import files
+@import "mixin/import";
+@import "theme/form-field--tm-1";

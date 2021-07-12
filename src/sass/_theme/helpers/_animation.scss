@@ -1,0 +1,29 @@
+.spin {
+  animation: fa-spin 1.5s infinite linear;
+}
+.spin-left {
+  animation: fa-spin-left 1.5s infinite linear;
+}
+
+.pulse {
+  animation: fa-spin 1s infinite steps(8);
+}
+
+@keyframes fa-spin {
+  0% {
+    transform: rotate(0deg)
+  }
+
+  to {
+    transform: rotate(1turn)
+  }
+}
+@keyframes fa-spin-left {
+  0% {
+    transform: rotate(0deg)
+  }
+
+  to {
+    transform: rotate(-1turn)
+  }
+}

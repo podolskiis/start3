@@ -1,0 +1,19 @@
+@mixin ts($speed: $ts-time-base) {
+  transition-property: color, background-color, border-color, box-shadow;
+  transition-duration: $speed;
+}
+@mixin ts-shd($speed: $ts-time-base) {
+  transition: box-shadow $speed;
+}
+@mixin ts-opc($speed: $ts-time-base) {
+  transition: opacity $speed;
+}
+@mixin ts-all($speed: $ts-time-base) {
+  transition: all $speed;
+}
+@mixin ts-svg($val, $speed: $ts-time-base) {
+  transition: $val $speed;
+}
+@mixin ts-off() {
+  transition: none !important;
+}
