@@ -1,3 +1,7 @@
+const lamelixCarousel = new Carousel(document.querySelector('.carousel--tm-1'), {
+  // 'slidesPerPage': 1
+});
+
 (function ($) {
 
   let $b, QS;

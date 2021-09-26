@@ -1,6 +1,6 @@
 // row gutter
 @mixin g($gutter: $gutter-base) {
-  $gutterLR: $gutter/2;
+  $gutterLR: $gutter / 2;
   margin-left: -$gutterLR;
   margin-right: -$gutterLR;
   margin-top: -$gutter;
@@ -23,7 +23,7 @@
   }
 }
 @mixin gx($gutter: $gutter-base) {
-  $gutterLR: $gutter/2;
+  $gutterLR: $gutter / 2;
   margin-left: -$gutterLR;
   margin-right: -$gutterLR;
   > * {

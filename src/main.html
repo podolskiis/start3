@@ -15,7 +15,8 @@
 		<meta property="og:description" content="">
 		<meta property="og:image" content="">
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
-		<link rel="stylesheet" href="css/app.min.css?rev=@@hash">
+		<link rel="stylesheet" href="css/vendor.min.css?rev=@@hash">
+		<link rel="stylesheet" href="css/theme.min.css?rev=@@hash">
 		<link rel="stylesheet" href="css/custom.css">
 	</head>
 	<body class="page">
@@ -92,7 +93,14 @@
 							<h1 class="m-0">Title</h1>
 						</div>
 						<div class="mb-3">
-							<p><a class="bt bt--tm-1" href="#" data-bs-toggle="modal" data-bs-target="#modal-inform">open modal</a></p>
+							<div class="carousel carousel--tm-1">
+								<div class="carousel__slide"><a data-caption="Image caption 1" data-fancybox="gallery-1" href="https://lipsum.app/id/61/1600x1200"><img src="https://lipsum.app/id/61/850x400"></a></div>
+								<div class="carousel__slide"><a data-caption="Image caption 2" data-fancybox="gallery-1" href="https://lipsum.app/id/62/1600x1200"><img src="https://lipsum.app/id/62/850x400"></a></div>
+								<div class="carousel__slide"><a data-caption="Image caption 3" data-fancybox="gallery-1" href="https://lipsum.app/id/63/1600x1200"><img src="https://lipsum.app/id/63/850x400"></a></div>
+								<div class="carousel__slide"><a data-caption="Image caption 4" data-fancybox="gallery-1" href="https://lipsum.app/id/64/1600x1200"><img src="https://lipsum.app/id/64/850x400"></a></div>
+								<div class="carousel__slide"><a data-caption="Image caption 5" data-fancybox="gallery-1" href="https://lipsum.app/id/65/1600x1200"><img src="https://lipsum.app/id/65/850x400"></a></div>
+							</div>
+							<p><a class="bt bt--tm-1" data-bs-target="#modal-inform" data-bs-toggle="modal" href="#">open modal</a></p>
 							<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
 							<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
 						</div>
@@ -116,7 +124,7 @@
 								<input class="form-field form-field--tm-1 w-100" type="tel" placeholder="Ваш телефон" required>
 							</div>
 							<div class="form-group form-group--tm-1">
-								<select class="b-select b-select--tm-1 w-100" data-select="" data-placeholder="Выбрать..." required>
+								<select class="b-select b-select--tm-1 w-100" data-placeholder="Выбрать..." data-select="" required>
 									<option value="val-1">Lorem option #1</option>
 									<option value="val-2">Lorem option #2</option>
 									<option value="val-3">Lorem option #3</option>
@@ -178,6 +186,6 @@
 		<!-- MODALS: END -->
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 		<script src="js/vendor.min.js?rev=@@hash"></script>
-		<script src="js/app.js?rev=@@hash"></script>
+		<script src="js/theme.js?rev=@@hash"></script>
 	</body>
 </html>

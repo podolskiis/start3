@@ -42,6 +42,9 @@ a,.b-link,.bt.b-link {
     outline: none;
   }
 }
+a:not([href]) {
+  cursor: default;
+}
 
 a,input,textarea,button,.bt,.b-link {
   @include ts;

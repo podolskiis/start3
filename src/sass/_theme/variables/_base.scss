@@ -15,7 +15,7 @@ $paragraph-margin-bottom: 1rem; // BS
 $grid-gutter-width: $gutter-grid-base; // BS
 
 // ...
-$ts-time-base: 0.2s;
+$ts-time-base: 0.2s 0.1s;
 $border-radius-base: 3px;
 $box-shadow-up-base: 1px -1px 5px rgba(#000000, 0.3);
 $box-shadow-down-base: 1px 1px 5px rgba(#000000, 0.3);

@@ -1,10 +1,4 @@
-"use strict";
-const
-  date = '2020/02',
-  project = 'start',
-  hostUrl = 'sergeypodolsky.ru/public_html/work/' + date + '/' + project, // './'
-  laravel = false, // laravel: true, false
-  { src, dest, watch, series, parallel } = require('gulp'),
+const { src, dest, watch, series, parallel } = require('gulp'),
   plumber = require('gulp-plumber'),
   sass = require('gulp-sass'),
   sassGlob = require('gulp-sass-glob'),
@@ -30,24 +24,43 @@ const
   ftp = require('vinyl-ftp'),
   rev = require('gulp-rev-append'),
   formatHtml = require('gulp-format-html'),
-  prettyHtml = require('gulp-pretty-html'),
+  prettyHtml = require('gulp-pretty-html');
+
+let
+  laravel = false,
+  date    = '2020/02',
+  project = 'start',
+  hostUrl = 'sergeypodolsky.ru/public_html/work/' + date + '/' + project,
   pathApp = 'src/',
-  pathBld = 'www/',
+  pathBld = 'dist/',
   paths = {
-    js: [
+    node_js: [
       'node_modules/bootstrap/dist/js/bootstrap.bundle.min.js',
       'node_modules/bootstrap-select/dist/js/bootstrap-select.min.js',
+      'node_modules/@fancyapps/ui/dist/fancybox.umd.js',
     ],
-    css: [
+    node_css: [
+      'node_modules/bootstrap/dist/css/bootstrap.min.css',
+      'node_modules/bootstrap-select/dist/css/bootstrap-select.min.css',
+      'node_modules/@fancyapps/ui/dist/fancybox.css',
     ],
-    html: laravel ? 'resources/views/**' : pathApp + '*.html',
+    node_map: {
+      js: [
+        'node_modules/bootstrap/dist/js/bootstrap.bundle.min.js.map',
+        'node_modules/bootstrap-select/dist/js/bootstrap-select.min.js.map',
+      ],
+      css: [
+        'node_modules/bootstrap/dist/css/bootstrap.min.css.map',
+      ],
+    },
+    html: laravel ? 'resources/views/' : pathApp + '*.html',
     script: laravel ? 'public/app/js/' : pathApp + 'js/',
     style: {
       src: laravel ? 'resources/sass/_theme/' : pathApp + 'sass/_theme/',
       dest: laravel ? 'public/app/css/' : pathApp + 'css/',
     },
     svg: {
-      src: laravel ? 'public/app/images/icons/svg/**' : pathApp + 'images/icons/svg/**/*.svg',
+      src: laravel ? 'public/app/images/icons/svg/' : pathApp + 'images/icons/svg/',
       dest: laravel ? 'public/app/images/icons/' : pathApp + 'images/icons/',
     },
     template: {
@@ -57,19 +70,19 @@ const
     },
     import: {
       fonts: {
-        src: pathApp + 'fonts/**',
+        src: pathApp + 'fonts/',
         dest: 'www/fonts/',
       },
       css: {
-        src: pathApp + 'css/**',
+        src: pathApp + 'css/',
         dest: 'www/css/',
       },
       js: {
-        src: pathApp + 'js/**',
+        src: pathApp + 'js/',
         dest: 'www/js/',
       },
       video: {
-        src: pathApp + 'video/**',
+        src: pathApp + 'video/',
         dest: 'www/video/',
       }
     }
@@ -96,19 +109,39 @@ function serve(done) {
 
 // Concatenate vendor files
 function vendor(done) {
-  lodash(paths).forEach(function (dist, type) {
-    if (type == 'js' && dist.length) {
-      return src(dist)
+  lodash(paths).forEach(function (item, type) {
+
+    if (type == 'node_js' && item.length) {
+      return src(item)
         .pipe(concat('vendor.min.js'))
         .pipe(dest(paths.script))
+    } else {
+      del([paths.script + 'vendor.min.js']);
     }
-    if (type == 'css' && dist.length) {
-      return src(dist)
+
+    if (type == 'node_css' && item.length) {
+      return src(item)
         .pipe(concat('vendor.min.css'))
         .pipe(dest(paths.style.dest))
     } else {
       del([paths.style.dest + 'vendor.min.css']);
     }
+
+    if (type == 'node_map') {
+      lodash(item).forEach(function (item, type) {
+        if (type == 'js' && item.length) {
+          lodash(item).forEach(function (item) {
+            return src(item).pipe(dest(pathApp + 'js/'))
+          })
+        }
+        if (type == 'css' && item.length) {
+          lodash(item).forEach(function (item) {
+            return src(item).pipe(dest(pathApp + 'css/'))
+          })
+        }
+      })
+    }
+
   })
   done();
 }
@@ -124,19 +157,18 @@ function style() {
     .pipe(autoprefixer({ overrideBrowserslist: ['last 8 versions'] }))
     .pipe(gcmq())
     .pipe(csso())
-    .pipe(rename({ suffix: '.min' }))
+    .pipe(rename({ basename: 'theme', suffix: '.min' }))
     .pipe(dest(paths.style.dest))
     .pipe(server.stream())
 }
 
 // Svg
 function svg() {
-  return src(paths.svg.src)
+  return src(paths.svg.src + '**/*.svg')
     .pipe(plumber())
     .pipe(svgmin({
-      js2svg: {
-        pretty: true
-      }
+      multipass: true,
+      full: true,
     }))
     .pipe(cheerio({
       run: function ($) {
@@ -174,10 +206,10 @@ function template() {
 
 // Watch for changes
 function watcher() {
-  watch(paths.style.src + '**', parallel(style));
-  watch(paths.svg.src, series(svg, parallel(reload)));
-  watch(paths.script + '**', reload);
-  laravel ? watch(paths.html, reload) : watch(paths.template.src + '**', parallel(template));
+  watch(paths.style.src + '**/*', parallel(style));
+  watch(paths.svg.src + '**/*', series(svg, parallel(reload)));
+  watch(paths.script + '**/*', reload);
+  laravel ? watch(paths.html + '**/*.php', reload) : watch(paths.template.src + '**/*.pug', parallel(template));
 }
 
 
@@ -207,7 +239,7 @@ function clean() {
 
 // Import (images)
 function images() {
-  return src(pathApp + 'images/**')
+  return src(pathApp + 'images/**/*')
     .pipe(imagemin([
       imagemin.gifsicle({ interlaced: true }),
       imagemin.mozjpeg({ quality: 75, progressive: true }),
@@ -236,10 +268,10 @@ function html() {
 
 // Import other files
 function files(done) {
-  lodash(paths).forEach(function (dist, type) {
+  lodash(paths).forEach(function (item, type) {
     if (type == 'import') {
-      lodash(dist).forEach(function (val, key) {
-        return src(val.src)
+      lodash(item).forEach(function (val) {
+        return src(val.src + '**/*')
           .pipe(dest(val.dest))
       })
     }

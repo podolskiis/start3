@@ -2,7 +2,7 @@
   "name": "project",
   "version": "1.0.0",
   "devDependencies": {
-    "browser-sync": "^2.27.4",
+    "browser-sync": "^2.27.5",
     "del": "^6.0.0",
     "gulp": "^4.0.2",
     "gulp-autoprefixer": "^8.0.0",
@@ -30,7 +30,8 @@
     "vinyl-ftp": "^0.6.1"
   },
   "dependencies": {
-    "bootstrap": "^5.0.2",
+    "@fancyapps/ui": "^4.0.5",
+    "bootstrap": "^5.1.1",
     "bootstrap-select": "^1.14.0-beta2"
   }
 }

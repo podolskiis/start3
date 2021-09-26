@@ -13,15 +13,14 @@ block content
         h1.m-0
           | Title
       .mb-3
-        //- p#lightgallery
-          a(href="https://source.unsplash.com/IvfoDk30JnI/1500x1000")
-            <img src="https://source.unsplash.com/IvfoDk30JnI/240x160" />
-          a(href="https://source.unsplash.com/IvfoDk30JnI/1500x1000")
-            <img src="https://source.unsplash.com/IvfoDk30JnI/240x160" />
-          a(href="https://source.unsplash.com/IvfoDk30JnI/1500x1000")
-            <img src="https://source.unsplash.com/IvfoDk30JnI/240x160" />
+        .carousel.carousel--tm-1
+          - for (var x = 1; x <= 5; x++)
+            - let url = `https://lipsum.app/id/6${x}/`;
+            .carousel__slide
+              a(data-caption=`Image caption ${x}` data-fancybox='gallery-1' href=url+'1600x1200')
+                img(src=url+'850x400')
         p
-          a(href="#" class="bt bt--tm-1" data-bs-toggle="modal" data-bs-target='#modal-inform')
+          a(class="bt bt--tm-1" data-bs-target='#modal-inform' data-bs-toggle="modal" href="#")
             | open modal
         - for (var x = 1; x <= 2; x++)
           +p
@@ -40,17 +39,17 @@ block content
         .form-group.form-group--tm-1
           input(type="tel" placeholder="Ваш телефон" required).form-field.form-field--tm-1.w-100
         .form-group.form-group--tm-1
-          +b-select(data-select="" data-placeholder="Выбрать..." required).b-select.b-select--tm-1.w-100
+          +b-select(data-placeholder="Выбрать..." data-select="" required).b-select.b-select--tm-1.w-100
         .form-group.form-group--tm-1
           .row.g-3
             .col-md
               +b-check('b-check--tm-1')
                 | checkbox
             .col-md
-              +b-check('b-check--tm-1')(type="radio" name="mame1")
+              +b-check('b-check--tm-1')(name="mame1" type="radio")
                 | radio1
             .col-md
-              +b-check('b-check--tm-1')(type="radio" name="mame1")
+              +b-check('b-check--tm-1')(name="mame1" type="radio")
                 | radio2
         .form-group.form-group--tm-1
           textarea(rows="5" placeholder="Сообщение" required).form-field.form-field--tm-1.w-100
