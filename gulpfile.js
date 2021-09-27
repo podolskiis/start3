@@ -201,7 +201,7 @@ function watcher() {
 
 
 const devHtml = series(
-  vendor, style, template, svg, images,
+  vendor, style, template, svg,
   parallel(watcher, serve)
 )
 const devPhp = series(
@@ -264,12 +264,8 @@ const build = series(
   parallel(html, files, images)
 )
 exports.bld = build;
-
-const go = series(
-  clean,
-  parallel(files)
-)
-exports.go = go;
+exports.html = html;
+exports.img = images;
 
 
 /* DEPLOY PROCESSING

@@ -176,7 +176,7 @@ const lamelixCarousel = new Carousel(document.querySelector('.carousel--tm-1'), 
 
   $(function () {
     window.fn.Launch();
-    QS = '[disabled],.disabled';
+    QS = '[disabled], .disabled';
     if (document.querySelector(QS)) {
       $(QS).on('click', function (e) { e.preventDefault() });
     }
