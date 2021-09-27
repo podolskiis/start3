@@ -28,11 +28,12 @@ const { src, dest, watch, series, parallel } = require('gulp'),
 
 let
   laravel = false,
-  date    = '2020/02',
+  date = '2020/02',
   project = 'start',
   hostUrl = 'sergeypodolsky.ru/public_html/work/' + date + '/' + project,
   pathApp = 'src/',
   pathBld = 'dist/',
+  assets = 'assets/',
   paths = {
     node_js: [
       'node_modules/bootstrap/dist/js/bootstrap.bundle.min.js',
@@ -54,37 +55,23 @@ let
       ],
     },
     html: laravel ? 'resources/views/' : pathApp + '*.html',
-    script: laravel ? 'public/app/js/' : pathApp + 'js/',
+    script: laravel ? 'public/app/js/' : pathApp + assets + 'js/',
     style: {
       src: laravel ? 'resources/sass/_theme/' : pathApp + 'sass/_theme/',
-      dest: laravel ? 'public/app/css/' : pathApp + 'css/',
+      dest: laravel ? 'public/app/css/' : pathApp + assets + 'css/',
     },
     svg: {
-      src: laravel ? 'public/app/images/icons/svg/' : pathApp + 'images/icons/svg/',
-      dest: laravel ? 'public/app/images/icons/' : pathApp + 'images/icons/',
+      src: laravel ? 'public/app/images/icons/svg/' : pathApp + assets + 'images/icons/svg/',
+      dest: laravel ? 'public/app/images/icons/' : pathApp + assets + 'images/icons/',
+    },
+    img: {
+      src: pathApp + assets + 'images/',
+      dest: pathBld + assets + 'images/',
     },
     template: {
       src: pathApp + 'pug/',
       dest: pathApp,
       json: pathApp + 'pug/_base/_data.json',
-    },
-    import: {
-      fonts: {
-        src: pathApp + 'fonts/',
-        dest: 'www/fonts/',
-      },
-      css: {
-        src: pathApp + 'css/',
-        dest: 'www/css/',
-      },
-      js: {
-        src: pathApp + 'js/',
-        dest: 'www/js/',
-      },
-      video: {
-        src: pathApp + 'video/',
-        dest: 'www/video/',
-      }
     }
   };
 
@@ -107,7 +94,7 @@ function serve(done) {
   done();
 }
 
-// Concatenate vendor files
+// Vendor files
 function vendor(done) {
   lodash(paths).forEach(function (item, type) {
 
@@ -131,12 +118,12 @@ function vendor(done) {
       lodash(item).forEach(function (item, type) {
         if (type == 'js' && item.length) {
           lodash(item).forEach(function (item) {
-            return src(item).pipe(dest(pathApp + 'js/'))
+            return src(item).pipe(dest(paths.script))
           })
         }
         if (type == 'css' && item.length) {
           lodash(item).forEach(function (item) {
-            return src(item).pipe(dest(pathApp + 'css/'))
+            return src(item).pipe(dest(paths.style.dest))
           })
         }
       })
@@ -214,7 +201,7 @@ function watcher() {
 
 
 const devHtml = series(
-  vendor, style, template, svg,
+  vendor, style, template, svg, images,
   parallel(watcher, serve)
 )
 const devPhp = series(
@@ -237,9 +224,26 @@ function clean() {
   return del([pathBld]);
 }
 
-// Import (images)
+// Import (html)
+function html() {
+  return src(pathApp + '*.html')
+    .pipe(rev())
+    .pipe(formatHtml())
+    .pipe(prettyHtml({
+      unformatted: ['code', 'pre', 'em', 'strong', 'i', 'b', 'br']
+    }))
+    .pipe(dest(pathBld));
+}
+
+// Import assets files
+function files() {
+  return src([pathApp + assets + '**/*', '!**/images/**'])
+    .pipe(dest(pathBld + assets)); // без "assets" - убрать "+ assets"
+}
+
+// Images
 function images() {
-  return src(pathApp + 'images/**/*')
+  return src(paths.img.src + '**/*')
     .pipe(imagemin([
       imagemin.gifsicle({ interlaced: true }),
       imagemin.mozjpeg({ quality: 75, progressive: true }),
@@ -252,38 +256,20 @@ function images() {
         ]
       })
     ]))
-    .pipe(dest(pathBld + 'images/'));
-}
-
-// Import (html)
-function html() {
-  return src(pathApp + '*.html')
-    .pipe(rev())
-    .pipe(formatHtml())
-    .pipe(prettyHtml({
-      unformatted: ['code', 'pre', 'em', 'strong', 'i', 'b', 'br']
-    }))
-    .pipe(dest(pathBld));
-}
-
-// Import other files
-function files(done) {
-  lodash(paths).forEach(function (item, type) {
-    if (type == 'import') {
-      lodash(item).forEach(function (val) {
-        return src(val.src + '**/*')
-          .pipe(dest(val.dest))
-      })
-    }
-  });
-  done();
+    .pipe(dest(paths.img.dest));
 }
 
 const build = series(
   clean,
-  parallel(html, images, files)
+  parallel(html, files, images)
 )
 exports.bld = build;
+
+const go = series(
+  clean,
+  parallel(files)
+)
+exports.go = go;
 
 
 /* DEPLOY PROCESSING

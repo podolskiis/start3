@@ -7,7 +7,7 @@ mixin modal-bs
 mixin b-logo(img,ht)
   .b-logo&attributes(attributes)
     a.b-logo__link(href="/")
-      img.b-logo__img(src=`images/theme/${img}` height=ht alt)
+      img.b-logo__img(src=`${assets}images/theme/${img}` height=ht alt)
       //- span.b-logo__title= poject
 mixin b-check(mod)
   label.b-check(class=mod)

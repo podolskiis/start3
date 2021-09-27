@@ -6,27 +6,22 @@ html(lang="zxx")
   head
     meta(charset="utf-8")
     meta(http-equiv="X-UA-Compatible" content="IE=edge")
-    meta(name="viewport" content="width=device-width, initial-scale=1")
+    meta(name="viewport", content="width=device-width, initial-scale=1")
     meta(name="format-detection" content="telephone=no")
     meta(name="format-detection" content="address=no")
     
     block title
       title=pojectTitle
-    
-    meta(name="description" content="")
-    meta(name="keywords" content="")
-    meta(property='og:url' content="")
-    meta(property='og:type' content="")
-    meta(property='og:title' content="")
-    meta(property='og:description' content="")
-    meta(property='og:image' content="")
+    meta(name="description", content="Описание содержимого страницы")
+    meta(name="keywords", content="ключевые слова, через запятую")
 
     +favicon
     +icomoon
-    link(rel="stylesheet" href=`${cdnjs}/font-awesome/5.15.3/css/all.min.css`)
-    link(rel="stylesheet" href="css/vendor.min.css?rev=@@hash")
-    link(rel="stylesheet" href="css/theme.min.css?rev=@@hash")
-    link(rel="stylesheet" href="css/custom.css")
+    
+    link(href=`${cdnjs}font-awesome/5.15.3/css/all.min.css` rel="stylesheet")
+    link(href=`${assets}css/vendor.min.css?rev=@@hash` rel="stylesheet")
+    link(href=`${assets}css/theme.min.css?rev=@@hash` rel="stylesheet")
+    link(href=`${assets}css/custom.css` rel="stylesheet")
 
   body.page(class=bodyClasses)
     if before
@@ -49,7 +44,8 @@ html(lang="zxx")
       // MODALS: START 
       include ../_section/_static/_modals.pug
       // MODALS: END 
+
     script(src=`${cdnjs}/jquery/3.6.0/jquery.min.js`)
-    script(src="js/vendor.min.js?rev=@@hash")
+    script(src=`${assets}js/vendor.min.js?rev=@@hash`)
     block script
-    script(src="js/theme.js?rev=@@hash")
+    script(src=`${assets}js/theme.js?rev=@@hash`)
