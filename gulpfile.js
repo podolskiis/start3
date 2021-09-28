@@ -272,7 +272,7 @@ exports.img = images;
 ********************************************************/
 
 function sync() {
-  return src(pathBld + '**')
+  return src(pathBld + '**/*')
     .pipe(rsync({
       root: pathBld,
       hostname: 'podolskiis@vh54.timeweb.ru',
@@ -292,7 +292,7 @@ function http() {
     log: gutil.log
   });
 
-  return src(pathBld + '**', { buffer: false })
+  return src(pathBld + '**/*', { buffer: false })
     .pipe(conn.dest(hostUrl));
 }
 

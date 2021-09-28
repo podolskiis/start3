@@ -8,7 +8,7 @@ $lg: 992px;
 $xl: 1200px;
 $xxl: 1400px;
 
-// Grid containers (!bootstrap)
+// Grid containers (bootstrap)
 $container-max-widths: (
   sm: 540px,
   md: 720px,
@@ -17,7 +17,7 @@ $container-max-widths: (
   xxl: 1320px,
 );
 
-// Grid breakpoints (!bootstrap)
+// Grid breakpoints (bootstrap)
 $grid-breakpoints: (
   xs: 0,
   sm: $sm,

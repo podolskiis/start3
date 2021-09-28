@@ -1,7 +1,9 @@
-.full-y {
+@mixin fixed-row($child: "> :first-child") {
   display: flex;
   flex-direction: column;
   min-height: 100%;
   // &__fit {flex-shrink: 0;}
-  &__fill {flex: 1 0 auto;}
+  #{$child} {
+    flex: 1 0 auto;
+  }
 }

@@ -1,7 +1,9 @@
-// * {
-//   word-break: break-word;
-//   hyphens: auto;
-// }
+* {
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+  word-break: break-word;
+  hyphens: auto;
+}
 
 // title-size
 @if $title-size-media {
@@ -10,14 +12,17 @@
   }
 }
 
-@include tag-plus-class((h1,h2,h3,h4,h5,h6)) {
+@include tag-plus-class((h1, h2, h3, h4, h5, h6)) {
   font-weight: 700;
 }
-b,strong,th,dt {
+b,
+strong,
+th,
+dt {
   font-weight: 700;
 }
 
-@include tag-plus-class((p,pre,ul,ol,dl)) {
+@include tag-plus-class((p, pre, ul, ol, dl)) {
   margin-top: 0;
   margin-bottom: $paragraph-margin-bottom;
   &:last-child {
@@ -30,7 +35,9 @@ b,strong,th,dt {
   margin: $paragraph-margin-bottom 0;
 }
 
-a,.b-link,.bt.b-link {
+a,
+.b-link,
+.bt.b-link {
   cursor: pointer;
   text-decoration: none;
   color: $link-color-base;
@@ -46,12 +53,19 @@ a:not([href]) {
   cursor: default;
 }
 
-a,input,textarea,button,.bt,.b-link {
+a,
+input,
+textarea,
+button,
+.bt,
+.b-link {
   @include ts;
 }
 
-[class^="svg-"],[class*=" svg-"] {
-  rect, path {
+[class^="svg-"],
+[class*=" svg-"] {
+  rect,
+  path {
     @include ts-svg(stroke);
   }
 }

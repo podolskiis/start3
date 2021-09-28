@@ -1,4 +1,4 @@
-@mixin clamp($i:null) {
+@mixin clamp($i: 1) {
   // reset
   hyphens: none;
   word-break: normal;

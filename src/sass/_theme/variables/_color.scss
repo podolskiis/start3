@@ -13,13 +13,11 @@ $link-color-base-active: darken($link-color-base, 15%);
 $bg-color: (
   white: #ffffff,
   black: #000000,
-  gray: #cccccc
 );
 $text-color: (
   white: #ffffff,
   black: #000000,
-  gray: #cccccc,
   base: $color-1,
   accent: $color-accent,
-  link: $link-color-base
+  link: $link-color-base,
 );

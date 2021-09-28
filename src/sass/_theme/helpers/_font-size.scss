@@ -1,10 +1,10 @@
 @each $fz in $font-size-percent {
-  .fz-#{$fz}p {
+  #{".fz-" + $fz + "p"} {
     font-size: $fz * 1% !important;
   }
 }
 @each $fz in $font-size-px {
-  .fz-#{$fz} {
+  #{".fz-" + $fz} {
     font-size: $fz + px !important;
   }
 }

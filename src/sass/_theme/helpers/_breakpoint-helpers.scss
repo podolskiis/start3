@@ -5,20 +5,21 @@ $helpers-map:(
 
 $spacing-map: (
   mt: 'margin-top',
-  ml: 'margin-left',
-  mr: 'margin-right',
+  ms: 'margin-left',
+  me: 'margin-right',
   mb: 'margin-bottom',
   mx: ('margin-left','margin-right'),
   my: ('margin-top','margin-bottom'),
   m:  ('margin-top','margin-left','margin-right','margin-bottom'),
   pt: 'padding-top',
-  pl: 'padding-left',
-  pr: 'padding-right',
+  ps: 'padding-left',
+  pe: 'padding-right',
   pb: 'padding-bottom',
   px: ('padding-left','padding-right'),
   py: ('padding-top','padding-bottom'),
   p:  ('padding-top','padding-left','padding-right','padding-bottom'),
 ) !default;
+
 $spacing-size-map: $offset-size-map;
 
 @include breakpoint-helpers-init($grid-breakpoints);

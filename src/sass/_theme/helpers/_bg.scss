@@ -1,6 +1,7 @@
 .bg-white {
-  &+& {
-    padding-top: 0; }
+  & + & {
+    padding-top: 0;
+  }
 }
 
 .bg-image {

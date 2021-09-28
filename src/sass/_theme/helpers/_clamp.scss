@@ -1,9 +1,0 @@
-// support on JS - https://github.com/josephschmitt/Clamp.js
-.clamp {
-  @include clamp;
-  @for $i from 1 through 5 {
-    &--line-#{$i} {
-      -webkit-line-clamp: $i;
-    }
-  }
-}
