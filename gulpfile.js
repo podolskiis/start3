@@ -57,7 +57,7 @@ let
     html: laravel ? 'resources/views/' : pathApp + '*.html',
     script: laravel ? 'public/app/js/' : pathApp + assets + 'js/',
     style: {
-      src: laravel ? 'resources/sass/_theme/' : pathApp + 'sass/_theme/',
+      src: laravel ? 'resources/sass/theme/' : pathApp + 'sass/theme/',
       dest: laravel ? 'public/app/css/' : pathApp + assets + 'css/',
     },
     svg: {
@@ -116,12 +116,14 @@ function vendor(done) {
 
     if (type == 'node_map') {
       lodash(item).forEach(function (item, type) {
-        if (type == 'js' && item.length) {
+        if (type == 'js') {
+          del([paths.script + '*.js.map']);
           lodash(item).forEach(function (item) {
             return src(item).pipe(dest(paths.script))
           })
         }
-        if (type == 'css' && item.length) {
+        if (type == 'css') {
+          del([paths.style.dest + '*.css.map']);
           lodash(item).forEach(function (item) {
             return src(item).pipe(dest(paths.style.dest))
           })
