@@ -13,10 +13,10 @@ const { src, dest, watch, series, parallel } = require('gulp'),
   svgSprite = require('gulp-svg-sprite'),
   replace = require('gulp-replace'),
   cheerio = require('gulp-cheerio'),
+  del = require('del'),
   pug = require('gulp-pug'),
   fs = require('fs'),
   cached = require('gulp-cached'),
-  del = require('del'),
   imagemin = require('gulp-imagemin'),
   pngquant = require('imagemin-pngquant'),
   rsync = require('gulp-rsync'),
@@ -28,13 +28,13 @@ const { src, dest, watch, series, parallel } = require('gulp'),
 
 let
   laravel = false,
-  date = '2020/02',
   project = 'start',
+  date    = '2020/02',
   hostUrl = 'sergeypodolsky.ru/public_html/work/' + date + '/' + project,
   pathApp = 'src/',
   pathBld = 'dist/',
-  assets = 'assets/',
-  paths = {
+  assets  = 'assets/',
+  paths   = {
     node_js: [
       'node_modules/bootstrap/dist/js/bootstrap.bundle.min.js',
       'node_modules/bootstrap-select/dist/js/bootstrap-select.min.js',
@@ -87,7 +87,7 @@ function reload(done) {
 
 function serve(done) {
   server.init({
-    proxy: laravel && project + '.loc',
+    proxy: laravel && project,
     server: !laravel && pathApp,
     notify: false,
   });
@@ -201,7 +201,7 @@ function watcher() {
   laravel ? watch(paths.html + '**/*.php', reload) : watch(paths.template.src + '**/*.pug', parallel(template));
 }
 
-
+// Tasks
 const devHtml = series(
   vendor, style, template, svg,
   parallel(watcher, serve)
@@ -261,6 +261,7 @@ function images() {
     .pipe(dest(paths.img.dest));
 }
 
+// Tasks
 const build = series(
   clean,
   parallel(html, files, images)
@@ -298,8 +299,7 @@ function http() {
     .pipe(conn.dest(hostUrl));
 }
 
-/* TASKS
- ********************************************************/
+// Tasks
 exports.sync = sync;
 exports.http = http;
 exports.bs = series(build, sync);
