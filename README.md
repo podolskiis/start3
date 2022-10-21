@@ -10,3 +10,7 @@
 1. $ git clone https://github.com/podolskiis/start3.git
 2. $ npm i
 3. $ gulp
+
+> Не обновлять выше указанных версий
+del            6.1.1  →  7.x.x
+gulp-imagemin  7.1.0  →  8.x.x

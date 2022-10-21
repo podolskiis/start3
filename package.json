@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "devDependencies": {
     "browser-sync": "^2.27.10",
-    "del": "^6.1.1",
+    "del": "6.1.1",
     "gulp": "^4.0.2",
     "gulp-autoprefixer": "^8.0.0",
     "gulp-cached": "^1.1.1",
@@ -12,7 +12,7 @@
     "gulp-csso": "^4.0.1",
     "gulp-format-html": "^1.2.5",
     "gulp-group-css-media-queries": "^1.2.2",
-    "gulp-imagemin": "^7.1.0",
+    "gulp-imagemin": "7.1.0",
     "gulp-plumber": "^1.2.1",
     "gulp-pretty-html": "^2.0.10",
     "gulp-pug": "^5.0.0",
