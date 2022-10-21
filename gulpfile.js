@@ -1,6 +1,6 @@
 const { src, dest, watch, series, parallel } = require('gulp'),
   plumber = require('gulp-plumber'),
-  sass = require('gulp-sass'),
+  sass = require('gulp-sass')(require('sass')),
   sassGlob = require('gulp-sass-glob'),
   autoprefixer = require('gulp-autoprefixer'),
   csso = require('gulp-csso'),
@@ -29,7 +29,7 @@ const { src, dest, watch, series, parallel } = require('gulp'),
 let
   laravel = false,
   project = 'start',
-  date    = '2020/02',
+  date    = '2022/01',
   hostUrl = 'sergeypodolsky.ru/public_html/work/' + date + '/' + project,
   pathApp = 'src/',
   pathBld = 'dist/',
@@ -80,22 +80,22 @@ let
  ********************************************************/
 
 // Browser-sync
-function reload(done) {
+function reload(cb) {
   server.reload();
-  done();
+  cb();
 }
 
-function serve(done) {
+function serve(cb) {
   server.init({
     proxy: laravel && project,
     server: !laravel && pathApp,
     notify: false,
   });
-  done();
+  cb();
 }
 
 // Vendor files
-function vendor(done) {
+function vendor(cb) {
   lodash(paths).forEach(function (item, type) {
 
     if (type == 'node_js' && item.length) {
@@ -132,7 +132,7 @@ function vendor(done) {
     }
 
   })
-  done();
+  cb();
 }
 
 // Sass

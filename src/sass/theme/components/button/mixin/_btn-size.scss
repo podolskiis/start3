@@ -4,7 +4,7 @@
   $border-size: $btn-border-size-base
 ) {
   $line-height: $font-size * $btn-line-height-base;
-  $padding-y: rem(($size - $line-height)/2 - $border-size - 1);
+  $padding-y: rem(math.div(($size - $line-height), 2) - $border-size - 1);
   @if $padding-y > 0 {
     padding: {
       top: $padding-y;

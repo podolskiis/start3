@@ -51,7 +51,7 @@
       @media (min-width: $width) {
         @include media-generator($breakpoint);
       }
-      @media (max-width: $width - 0.2px) {
+      @media (max-width: ($width - 0.2px)) {
         @include media-min-max($breakpoint, $resize: "max");
       }
     } @else {
